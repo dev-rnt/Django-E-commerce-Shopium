@@ -1,0 +1,85 @@
+{% extends 'myapp/base.html' %}
+{% block content %}
+
+
+ <!-- Contact Start -->
+ <section class="section-conten padding-y bg">
+ <div class="container">
+   {% include 'myapp/includes/message.html' %}
+     <h2 class="section-title position-relative text-uppercase mx-xl-5 mt-3"><span">Contact Us</span></h2>
+     <div class="row px-xl-5">
+         <div class="col-lg-7 mb-5">
+             <div class="contact-form bg-lightzz p-30">
+                 <div id="success"></div>
+
+                 <div class="card-body">
+                   <div class="row">
+                   <div class="col-md-12">
+                     <form action="{% url 'Contact' %}" method="POST">
+                       {% csrf_token %}
+
+                       <div class="form-group">
+                         <label>Name</label>
+                         <input type="text" minlength="5" maxlength="20" name="name" placeholder="Enter your name" class="form-control" required>
+                       </div>
+                       <div class="form-group">
+                         <label>Email</label>
+                         <input type="email" minlength="9" maxlength="20" name="email" placeholder="Enter your email" class="form-control" required>
+                       </div>
+                       <div class="form-group">
+                         <label>Subject</label>
+                         <input type="text" name="subject" minlength="9" maxlength="50" placeholder="Enter subject" class="form-control" required>
+                       </div>
+                       <div class="form-group">
+                         <label>Message</label>
+                          <textarea class="form-control" name="message" minlength="10" maxlength="300" rows="4" placeholder="Message" required="required"></textarea>
+                      </div>
+
+                       <input type="submit" value="Send" class="btn btn-warning">
+                     </form>
+                   </div>
+
+                   </div> <!-- row.// -->
+                 </div> <!-- card-body .// -->
+             </div>
+         </div>
+         <style media="screen">
+           .p-30 {
+              padding: 30px;
+          }
+
+          .mb-30 {
+              margin-bottom: 30px;
+          }
+          .bg-light1 {
+              background-color: #FFFFFF !important;
+          }
+          .bg-lightzz {
+            background-color: white;
+            }
+         </style>
+         <div class="col-lg-5 mb-5">
+             <div class="bg-lightzz p-30 mb-30" style="width: 490px;">
+                 <iframe style="width: 100%; height: 250px;"
+                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14238.484387192542!2d80.9376497922445!3d26.852001276930213!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399bfd09c18f1e13%3A0xbf01e68d3158fb37!2sHazratganj%2C%20Lucknow%2C%20Uttar%20Pradesh%20226001!5e0!3m2!1sen!2sin!4v1706207731958!5m2!1sen!2sin"
+                 frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+             </div>
+             <div class="bg-lightzz p-30 mb-3" style="width: 490px;">
+                 <p class="mb-2">  <i class="fa fa-map-marker-alt text-warning mr-3"></i>D-190 Sector K Hazratganj ,Lucknow</p>
+                 <p class="mb-2"><i class="fa fa-envelope text-warning mr-3"></i>rudranarayantiwari@gmail.com</p>
+                 <p class="mb-2"><i class="fa fa-phone-alt text-warning mr-3"></i>+91 8765635262</p>
+             </div>
+
+         </div>
+     </div>
+ </div>
+ <style media="screen">
+   .p-30 {
+    padding: 30px;
+}
+ </style>
+ <!-- Contact End -->
+ </section>
+
+
+{% endblock %}

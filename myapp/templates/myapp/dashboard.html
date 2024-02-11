@@ -1,0 +1,55 @@
+{% extends 'myapp/base.html' %}
+{% block content %}
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-conten padding-y bg">
+
+<div class="container">
+	<div class="row">
+ {% include 'myapp/dashboardsidebar.html' %}
+	<main class="col-md-9">
+		<article class="card">
+		<header class="card-header">
+			<strong class="d-inline-block mr-3">Logged in as:</strong>
+			<span>{{request.user.first_name|capfirst}} {{request.user.last_name|capfirst}}</span>
+		</header>
+		<div class="card-body">
+			<div class="row">
+			<div class="col-md-6">
+				<div class="card">
+					 <div class="card-body">
+					 	<h5 class="card-title">Total Orders</h5>
+						<h4>{{orders_count}}</h4>
+						<a href="{% url 'MyOrder' %}">View Orders</a>
+					 </div>
+				</div>
+			</div>
+      <div class="col-md-6">
+      	<div class="card" style="text-align:center;">
+      		<div class="card-body">
+						{% if userprofile.img %}
+      			<img src="{{userprofile.img.url}}" height="50" width="50" style="border-radius:50%" alt="User Profile Pic">
+						{% else %}
+						<p>Please upload profile picture</p>
+						{% endif %}
+						<p class="mb-0">Email: {{user.email}}</p>
+						{% if user.phone_number %}
+						<p>Phone: +91 {{user.phone_number}}</p>
+						{% else %}
+						<p>Phone number not registered</p>
+						{% endif %}
+					</div>
+      	</div>
+      </div>
+				</div>
+			</div> <!-- row.// -->
+		</article> <!-- order-group.// -->
+	</main>
+</div> <!-- row.// -->
+</div>
+
+
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+
+{% endblock content %}

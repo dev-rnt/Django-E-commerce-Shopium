@@ -1,0 +1,318 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+{% block content %}
+<style media="screen">
+	a {
+    color:  #ff9017;
+    text-decoration: none;
+    background-color: transparent;
+}
+a:hover{
+	color:  grey;
+	text-decoration: none;
+	background-color: transparent;
+}
+
+a.asdkgask:hover{
+	color:  #ff9017;
+	text-decoration: none;
+	background-color: transparent;
+}
+</style>
+<!-- ========================= SECTION PAGETOP ========================= -->
+<section class="section-pagetop bg">
+<div class="container">
+
+	{% if 'search' in request.path %}
+	   {% if key %}
+    	<h2 class="title-page">Search Result for {{key}}</h2>
+		 {% else %}
+		  <h2 class="title-page">No Search Result found</h2>
+		 {% endif %}
+	{% else %}
+	<style media="screen">
+		.title-page {
+			color: #343a40;
+
+				}
+	</style>
+	<h2 class="title-page">Our Store</h2>
+	{% endif %}
+
+</div> <!-- container //  -->
+</section>
+<!-- ========================= SECTION INTRO END// ========================= -->
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-content padding-y">
+<div class="container">
+
+<div class="row">
+	<aside class="col-md-3">
+
+<div class="card">
+	<article class="filter-group">
+		<header class="card-header">
+			<a href="#" data-toggle="collapse" data-target="#collapse_1" aria-expanded="true" class="">
+				<i class="icon-control fa fa-chevron-down"></i>
+				<h6 class="title">Categories</h6>
+			</a>
+		</header>
+
+		<div class="filter-content collapse show" id="collapse_1" style="">
+			<div class="card-body">
+
+				<ul class="list-menu">
+				<li><a class="asdkgask" href="{% url 'Store' %}">All Products </a></li>
+					{% for l in lcount %}
+				<li><a class="asdkgask "  href="{{ l.get_url }}">{{l.category_name}} </a></li>
+				{% endfor %}
+				</ul>
+
+			</div> <!-- card-body.// -->
+		</div>
+
+
+
+
+
+	</article> <!-- filter-group  .// -->
+	<article class="filter-group">
+		<header class="card-header">
+			<a href="#" data-toggle="collapse" data-target="#collapse_4" aria-expanded="true" class="">
+				<i class="icon-control fa fa-chevron-down"></i>
+				<h6 class="title">Sizes</h6>
+			</a>
+		</header>
+		<div class="filter-content collapse show" id="collapse_4" style="">
+			<style>
+				.checkbox-btn input:checked ~ .btn {
+			    border-color: #ff9017;
+			    background-color: #ff9017;
+			    color: #fff;
+			}
+			.checkbox-btn {
+					display: inline-block !important; /* Override Bootstrap styles */
+					margin-right: 10px; /* Add some spacing between labels */
+			}
+			.btn-light {
+    		color: #343a40;
+
+					}
+	    </style>
+
+
+
+		<!-- <form id="filter-form" action="{% url 'Store' %}" method="get"> -->
+			<div class="card-body">
+				<form id="filter-form" action="{% url 'Store' %}" method="get">
+				<label class="checkbox-btn">
+				 <input type="checkbox" value="Extra Small" {% if request.GET.size == 'Extra Small' %}checked{% endif %} name='size'>
+				 <span class="btn btn-light">Extra Small</span>
+			 </label>
+			 	</form>
+
+        	<form id="filter-form1" action="{% url 'Store' %}" method="get">
+			  <label class="checkbox-btn ">
+			    <input type="checkbox" value="Small" {% if request.GET.size == 'Small' %}checked{% endif %} name='size'>
+			    <span class="btn btn-light "> Small </span>
+			  </label>
+				 </form>
+
+				<form id="filter-form2" action="{% url 'Store' %}" method="get">
+			  <label class="checkbox-btn">
+			    <input type="checkbox" value="Medium" {% if request.GET.size == 'Medium' %}checked{% endif %} name='size'>
+			    <span class="btn btn-light"> Medium </span>
+			  </label>
+				</form>
+
+
+				<form id="filter-form3" action="{% url 'Store' %}" method="get">
+			  <label class="checkbox-btn">
+			    <input type="checkbox" value="Large" {% if request.GET.size == 'Large' %}checked{% endif %} name='size'>
+			    <span class="btn btn-light"> Large </span>
+			  </label>
+				</form>
+
+				<form id="filter-form4" action="{% url 'Store' %}" method="get">
+			  <label class="checkbox-btn">
+			    <input type="checkbox" value="Extra Large" {% if request.GET.size == 'Extra Large' %}checked{% endif %} name='size'>
+			    <span class="btn btn-light"> Extra Large </span>
+			  </label>
+				</form>
+		</div><!-- card-body.// -->
+		<!-- </form> -->
+		</div>
+	</article> <!-- filter-group .// -->
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script>
+      $(document).ready(function () {
+          $('#filter-form input').change(function () {
+              // Submit the form
+              $('#filter-form').submit();
+          });
+      });
+			$(document).ready(function () {
+					$('#filter-form1 input').change(function () {
+							// Submit the form
+							$('#filter-form1').submit();
+					});
+			});
+			$(document).ready(function () {
+					$('#filter-form2 input').change(function () {
+							// Submit the form
+							$('#filter-form2').submit();
+					});
+			});
+			$(document).ready(function () {
+					$('#filter-form3 input').change(function () {
+							// Submit the form
+							$('#filter-form3').submit();
+					});
+			});
+			$(document).ready(function () {
+					$('#filter-form4 input').change(function () {
+							// Submit the form
+							$('#filter-form4').submit();
+					});
+			});
+  </script>
+
+
+
+
+	<article class="filter-group">
+		<header class="card-header">
+			<a href="#" data-toggle="collapse" data-target="#collapse_3" aria-expanded="true" class="">
+				<i class="icon-control fa fa-chevron-down"></i>
+				<h6 class="title">Price range </h6>
+			</a>
+		</header>
+		<div class="filter-content collapse show" id="collapse_3" style="">
+			<div class="card-body">
+
+      <form action="{% url 'Store' %}" method="get">
+				<div class="form-row">
+				<div class="form-group col-md-6">
+				  <label>Min</label>
+				  <!-- <input class="form-control" placeholder="$0" type="number"> -->
+				  	<select class="mr-2 form-control" name='price'required>
+						<option value="50">र50</option>
+					</select>
+				</div>
+				<div class="form-group text-right col-md-6">
+				  <label>Max</label>
+				  	<select class="mr-2 form-control" name='price2'>
+						<option value="150">र150</option>
+						<option value="200">र200</option>
+						<option value="500">र500</option>
+						<option value="1000">र1000</option>
+						<option value="2000">र2000</option>
+					</select>
+				</div>
+				</div> <!-- form-row.// -->
+				<button class="btn btn-block btn-warning">Apply</button>
+			</form>
+			</div><!-- card-body.// -->
+		</div>
+	</article> <!-- filter-group .// -->
+
+</div> <!-- card.// -->
+
+	</aside> <!-- col.// -->
+	<main class="col-md-9">
+
+<header class="border-bottom mb-4 pb-3">
+		<div class="form-inline">
+			<span class="mr-md-auto"><b>{{data1}}</b> Items found </span>
+
+		</div>
+</header><!-- sect-heading -->
+<style media="screen">
+	.asdasd {
+    text-decoration: line-through;
+		color:grey;
+}
+.page-link {
+    position: relative;
+    display: block;
+    padding: 0.5rem 0.75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #ff9017;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+}
+.page-item.active .page-link {
+    z-index: 1;
+    color:white;
+    background-color: #ff9017;
+    border-color: #ff9017;
+}
+
+.page-link:hover {
+    z-index: 1;
+    color:white;
+    background-color: grey;
+    border-color: grey;
+}
+</style>
+<div class="row">
+{% for d in data %}
+	<div class="col-md-4">
+		<figure class="card card-product-grid">
+			<div class="img-wrap">
+				<a href="{{ d.get_url }}">
+				<img src="{{d.images.url}}">
+        </a>
+			</div> <!-- img-wrap.// -->
+			<figcaption class="info-wrap">
+				<div class="fix-height">
+					<a href="{{ d.get_url }}" class="title">{{d.name}}</a>
+					<div class="price-wrap mt-2">
+						<!-- <h5>र{{d.sprice}}</h5><h6 class="text-muted ml-2"></h6> -->
+						<span class="price"><strong>र{{d.sprice}}</strong></span> <del class="asdasd">र{{d.price}}</del>
+					</div> <!-- price-wrap.// -->
+				</div>
+				{% if d.stock <= 0 %}
+				<h5 class="text-danger">Out of Stock</h5>
+				{% else %}
+				<a href="{{ d.get_url }}" class="btn btn-block btn-warning">View Product</a>
+				{% endif %}
+			</figcaption>
+		</figure>
+	</div> <!-- col.// -->
+{% endfor %}
+</div> <!-- row end.// -->
+
+
+<nav class="mt-4" aria-label="Page navigation sample">
+	 {% if data.has_other_pages %}
+		  <ul class="pagination">
+				{% if data.has_previous %}
+		    <li class="page-item"><a class="page-link" href="?page={{data.previous_page_number}}">Previous</a></li>
+		    {% endif %}
+
+		    {% for i in data.paginator.page_range %}
+				    {% if data.number == i %}
+						<li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+						{% else %}
+				    <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+				    {% endif %}
+				{% endfor %}
+
+		    {% if data.has_next %}
+		    <li class="page-item"><a class="page-link" href="?page={{data.next_page_number}}">Next</a></li>
+				{% endif %}
+    {% endif %}
+			</ul>
+
+</nav>
+
+
+</main> <!-- col.// -->
+</div>
+</div> <!-- container .//  -->
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+{% endblock %}

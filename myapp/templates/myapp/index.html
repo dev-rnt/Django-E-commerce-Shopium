@@ -1,0 +1,170 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+{% block content %}
+<!-- ========================= SECTION MAIN ========================= -->
+<section class="section-intro padding-y-sm">
+<div class="container">
+<div class="intro-banner-wrap">
+	<img src="{% static 'myapp/images/py11.jpg' %}" class="img-fluid rounded">
+</div> 
+</div> <!-- container //  -->
+</section>
+<!-- ========================= SECTION MAIN END// ========================= -->
+<br>
+<br>
+<br>
+<!-- Featured Start -->
+ <div class="container">
+		 <div class="row">
+				 <div class="col-md-3">
+						 <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
+								 <h1 class="fa fa-check text-warning m-0 mr-3"></h1>
+								 <h5 class="font-weight-semi-bold m-0">Quality Product</h5>
+						 </div>
+				 </div>
+				 <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+						 <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
+								 <h1 class="fa fa-shipping-fast text-warning m-0 mr-2"></h1>
+								 <h5 class="font-weight-semi-bold m-0">Free Shipping</h5>
+						 </div>
+				 </div>
+				 <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+						 <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
+								 <h1 class="fas fa-exchange-alt text-warning m-0 mr-3"></h1>
+								 <h5 class="font-weight-semi-bold m-0">14-Day Return</h5>
+						 </div>
+				 </div>
+				 <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+						 <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
+								 <h1 class="fa fa-phone-volume text-warning m-0 mr-3"></h1>
+								 <h5 class="font-weight-semi-bold m-0">24/7 Support</h5>
+						 </div>
+				 </div>
+		 </div>
+ </div>
+ <!-- Featured End -->
+<!-- ========================= SECTION  ========================= -->
+<section class="section-name padding-y-sm">
+<div class="container">
+
+<header class="section-heading">
+	<h3 class="section-title">Categories</h3>
+</header><!-- sect-heading -->
+
+
+<div class="row">
+	{% for link in lcount %}
+	<div class="col-md-3">
+
+		<a class="text-warning" href="{{ link.get_url }}">
+	 		 <div class="cat-item d-flex align-items-center mb-4 custom-bg-color">
+	 				 <div class="overflow-hidden round-image" style="width: 100px; height: 100px;">
+	 						 <img class="img-fluid" src="{{link.cat_image.url}}" alt="">
+	 				 </div>
+	 				 <div class="flex-fill pl-3">
+	 						 <h5>{{ link.category_name }}</h5>
+	 						 <small class="text-body">{{ link.product_count }} Products </small>
+	 				 </div>
+	 		 </div>
+	  </a>
+
+	</div>
+{% endfor %}
+</div> <!-- row.// -->
+
+
+</div><!-- container // -->
+</section>
+
+<!-- ========================= SECTION  END// ========================= -->
+
+<!-- ========================= SECTION  ========================= -->
+<section class="section-name padding-y-sm">
+<div class="container">
+
+<header class="section-heading">
+	<a href="{% url 'Store'%}" class="btn btn-outline-warning float-right">See all</a>
+	<h3 class="section-title">Popular products</h3>
+</header><!-- sect-heading -->
+
+
+<div class="row">
+	{% for d in data %}
+	<div class="col-md-3">
+		<div class="card card-product-grid">
+			<a href="{{ d.get_url }}" class="img-wrap"> <img src="{{d.images.url}}"> </a>
+			<figcaption class="info-wrap">
+					<center>
+								<small class="brandj">{{d.brand}}</small>
+<a href="{{ d.get_url }}" class="title">{{d.name}}</a>
+				<!-- <div class="price mt-1">${{d.price}}</div> <!-- price-wrap.// -->
+				<div class="d-flex align-items-center justify-content-center mt-2">
+				<h5>र{{d.sprice}}</h5><h6 class="text-muted ml-2"><del>र{{d.price}}</del></h6>
+				</div>
+				<span class="spanhyh">{{product_discounts}}% off</span> </center>
+			</figcaption>
+		</div>
+	</div>
+	{% endfor %} <!-- col.// -->
+</div> <!-- row.// -->
+
+</div><!-- container // -->
+</section>
+
+<!-- ========================= SECTION  END// ========================= -->
+<section class="section-intro padding-y-sm">
+<div class="container">
+
+<div class="intro-banner-wrap">
+	<img src="{% static 'myapp/images/py9.jpg' %}" height="200px" width="100%">
+</div>
+
+</div> <!-- container //  -->
+</section>
+<!-- ========================= SECTION  ========================= -->
+<section class="section-name padding-y-sm">
+<div class="container">
+
+<header class="section-heading">
+	<h3 class="section-title">Recent products</h3>
+</header><!-- sect-heading -->
+
+
+<div class="row">
+	{% for d in data1 %}
+	<div class="col-md-3">
+		<div class="card card-product-grid">
+			<a href="{{ d.get_url }}" class="img-wrap"> <img src="{{d.images.url}}"> </a>
+			<figcaption class="info-wrap">
+					<center>
+								<small class="brandj">{{d.brand}}</small>
+	<a href="{{ d.get_url }}" class="title">{{d.name}}</a>
+				<!-- <div class="price mt-1">${{d.price}}</div> <!-- price-wrap.// -->
+				<div class="d-flex align-items-center justify-content-center mt-2">
+				<h5>र{{d.sprice}}</h5><h6 class="text-muted ml-2"><del>र{{d.price}}</del></h6>
+				</div>
+				<span class="spanhyh">{{product_discounts}}% off</span> </center>
+			</figcaption>
+		</div>
+	</div>
+	{% endfor %} <!-- col.// -->
+</div> <!-- row.// -->
+
+</div><!-- container // -->
+</section>
+
+<!-- ========================= SECTION  END// ========================= -->
+
+
+
+
+
+<style>
+    .custom-bg-color {
+        background-color: #e4e4e4 !important; /* Replace with the desired background color */
+        padding: 10px; /* Add padding if needed */
+        border-radius: 8px; /* Optional: Add border-radius for rounded corners */
+    }
+</style>
+
+{% endblock %}

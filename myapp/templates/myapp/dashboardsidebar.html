@@ -1,0 +1,38 @@
+<aside class="col-md-3">
+  <!--   SIDEBAR   -->
+  <style media="screen">
+    .list-group-item.active {
+      z-index: 2;
+      color: #fff;
+      background-color:  #ff9017;
+      border-color: #ff9017;
+  }
+  a {
+      color: grey;
+      text-decoration: none;
+      background-color: transparent;
+  }
+  a:hover {
+      color: #ff9017;
+      text-decoration: none;
+      background-color: transparent;
+  }
+
+.btn-light:hover {
+    background-color: red;
+    border-color: #e4e4e4;
+    color:white;
+}
+  </style>
+  <ul class="list-group">
+    <a class="list-group-item {% if '/dashboard/' == request.path %}active{% endif %}" href="{% url 'Dashboard' %}">Dashboard</a>
+    <a class="list-group-item {% if '/myorders/' == request.path %}active{% endif %}" href="{% url 'MyOrder' %}">My Orders</a>
+    <a class="list-group-item {% if '/edit_profile/' == request.path %}active{% endif %}" href="{% url 'EditProfile' %}">Edit Profile</a>
+    <a class="list-group-item {% if '/changepass/' == request.path %}active{% endif %}" href="{% url 'ChangePass' %}">Change Password</a>
+  </ul>
+  <br>
+  <a class="btn btn-dark btn-block" href="{% url 'Logout' %}"> <i class="fa fa-power-off"></i> <span class="text">Log out</span> </a>
+  <!--   SIDEBAR .//END   -->
+</aside>
+
+</style>

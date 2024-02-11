@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="pragma" content="no-cache" />
+<meta http-equiv="cache-control" content="max-age=604800" />
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+<title>Shopium | One of the Biggest Online Shopping Platform</title>
+
+<link href="{% static 'myapp/images/Untitled1.png' %}" rel="shortcut icon" type="image/x-icon">
+<!-- jQuery -->
+<script src="{% static 'myapp/js/jquery-2.0.0.min.js' %}" type="text/javascript"></script>
+
+<!-- Bootstrap4 files-->
+<script src="{% static 'myapp/js/bootstrap.bundle.min.js' %}" type="text/javascript"></script>
+<link href="{% static 'myapp/css/bootstrap.css' %}" rel="stylesheet" type="text/css"/>
+
+<!-- Font awesome 5 -->
+<link href="{% static 'myapp/fonts/fontawesome/css/all.min.css' %}" type="text/css" rel="stylesheet">
+<!-- Font Awesome -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+<!-- custom style -->
+<link href="{% static 'myapp/css/ui.css' %}" rel="stylesheet" type="text/css"/>
+<link href="{% static 'myapp/css/responsive.css' %}" rel="stylesheet" media="only screen and (max-width: 1200px)" />
+<link href="{% static 'myapp/css/test.css' %}" rel="stylesheet" type="text/css"/>
+
+<!-- custom javascript -->
+<script src="{% static 'myapp/js/script.js' %}" type="text/javascript"></script>
+ <script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD"></script>
+<script type="text/javascript">
+/// some script
+
+// jquery ready start
+$(document).ready(function() {
+	// jQuery code
+
+});
+// jquery end
+</script>
+<style>
+    /* Example media query for smaller screens */
+@media only screen and (max-width: 600px) {
+    /* Your styles for smaller screens go here */
+
+}
+</style>
+</head>
+<body>
+
+ <!--Header-->
+ {% include 'myapp/includes/navbar.html' %}
+
+  {% block content %}
+  {% endblock %}
+
+  <!--Footer-->
+  {% include 'myapp/includes/footer.html' %}

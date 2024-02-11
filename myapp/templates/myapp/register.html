@@ -1,0 +1,114 @@
+{% extends 'myapp/base.html' %}
+{% block content %}
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-content padding-y">
+<style media="screen">
+	.custom-file-label {
+    display: inline-block;
+    width: 100%;
+    background-color: ;
+    color: grey;
+    padding: 8px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+</style>
+<!-- ============================ COMPONENT REGISTER   ================================= -->
+	<div class="card mx-auto" style="max-width:720px; margin-top:40px;">
+      <article class="card-body">
+
+
+		{% if messages %}
+		{% for m in messages  %}
+		<div class="container" id="message">
+		<div {% if m.tags %} class="alert alert-{{ m.tags }}"{% endif %}>
+			{{m}}{% comment %}  <small><a href="{% url 'Login' %}">Click here to login </a></small> {% endcomment %}
+		</div>
+		</div>
+		{% endfor %}
+		{% endif %}
+		<header class="mb-4"><h4 class="card-title">Sign up</h4></header>
+		<form action="{% url 'Register' %}" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+				<div class="form-row">
+					<div class="col form-group">
+						{{form.first_name.label_tag}}
+						{{form.first_name}} 
+                        <small class="smalcss">{{form.first_name.errors | striptags}} </small>
+					</div> <!-- form-group end.// -->
+					<div class="col form-group">
+						{{form.last_name.label_tag}}
+						{{form.last_name}}
+						<small class="smalcss">{{form.last_name.errors | striptags}} </small>
+					</div> <!-- form-group end.// -->
+				</div> <!-- form-row end.// -->
+
+
+
+				<div class="form-row">
+					<div class="col form-group">
+						{{form.email.label_tag}}
+						{{form.email}}
+						{% if form.email.errors %}
+						<small class="smalcss">{{form.email.errors | striptags}} </small>
+						{% else %}
+						<small class="form-text text-muted">{{form.email.help_text | striptags}} </small>
+                        {% endif %}
+					</div> <!-- form-group end.// -->
+					<div class="col form-group">
+						{{form.phone_number.label_tag}}
+						{{form.phone_number}}
+						<small class="smalcss">{{form.phone_number.errors | striptags}} </small>
+					</div> <!-- form-group end.// -->
+
+
+				</div> <!-- form-row end.// -->
+
+				<div class="form-row">
+					<div class="col form-group">
+						{{form.password.label_tag}}
+						{{form.password}}
+						{% if form.non_field_errors %}
+						<small class="smalcss">{{ form.non_field_errors |striptags}}</small>
+						{% else %}
+						<small class="smalcss">{{form.password.errors | striptags}} </small>
+                        {% endif %}
+					</div> <!-- form-group end.// -->
+					<div class="col form-group">
+						{{form.password2.label_tag}}
+						{{form.password2}}
+						<small class="smalcss">{{form.password2.errors | striptags}} </small>
+
+					</div> <!-- form-group end.// -->
+
+
+					<div class="custom-file">
+						 <input type="file" class="custom-file-input" id="customFile" name="img" required>
+						 <label class="custom-file-label" for="customFile">Select Profile Picture</label>
+					</div>
+
+				</div> <!-- form-row end.// -->
+         <br>
+
+			    <div class="form-group">
+			        <button type="submit" class="btn btn-warning btn-block"> Register  </button>
+			    </div> <!-- form-group// -->
+
+			</form>
+		</article><!-- card-body.// -->
+    </div> <!-- card .// -->
+    <p class="text-center mt-4">Have an account? <a href="{% url 'Login' %}">Log In</a></p>
+    <br><br>
+<!-- ============================ COMPONENT REGISTER  END.// ================================= -->
+<script>
+	$(".custom-file-input").on("change", function() {
+		var fileName = $(this).val().split("\\").pop();
+		var fileName1 = 'Image File Selected';
+		$(this).siblings(".custom-file-label").addClass("selected").html(fileName1);
+	  });
+	</script>	  
+
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+
+{% endblock %}

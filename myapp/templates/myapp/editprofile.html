@@ -1,0 +1,88 @@
+{% extends 'myapp/base.html' %}
+{% block content %}
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-conten padding-y bg">
+<div class="container">
+	<div class="row">
+ {% include 'myapp/dashboardsidebar.html' %}
+	<main class="col-md-9">
+		<article class="card">
+		<header class="card-header">
+			<strong class="d-inline-block mr-3">Edit Profile</strong>
+		</header>
+		{% include 'myapp/includes/message.html' %}
+		<div class="card-body">
+			<div>
+				{% if userprofile.img %}
+			    <a href="{{ userprofile.img.url }}" target="_blank">
+			        <img src="{{ userprofile.img.url }}" alt="Profile Picture" width="100" style="border-radius:20px;">
+			    </a>
+					{% else %}
+          <p>No profile picture uploaded</p>
+					{% endif %}
+			</div>
+			<br>
+			<div class="row">
+			<div class="col-md-12">
+				<form class="" enctype="multipart/form-data" action="" method="post">
+				{% csrf_token %}
+
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<label>First Name</label>
+						{{form.first_name}}
+					</div>
+					<div class="form-group col-md-6">
+						<label>Last Name</label>
+						{{form.last_name}}
+					</div>
+				</div>
+
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<label>Phone Number</label>
+						{{form.phone_number}}
+					</div>
+					<div class="form-group col-md-6">
+						<label>Profile Pic</label>
+						{{pform.img}}
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label>Address Line 1</label>
+				{{pform.address_line_1}}
+				</div>
+				<div class="form-group">
+					<label>Address Line 2</label>
+						{{pform.address_line_2}}
+				</div>
+
+				<div class="form-row">
+					<div class="form-group col-md-4">
+						<label>City</label>
+							{{pform.city}}
+					</div>
+					<div class="form-group col-md-4">
+						<label>States</label>
+							{{pform.state}}
+					</div>
+					<div class="form-group col-md-4">
+						<label>Country</label>
+							{{pform.country}}
+					</div>
+				</div>
+				<input type="submit" class="btn btn-warning" name="" value="Save">
+				</form>
+			</div>
+				</div>
+			</div> <!-- row.// -->
+		</article> <!-- order-group.// -->
+	</main>
+</div> <!-- row.// -->
+</div>
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+
+{% endblock content %}

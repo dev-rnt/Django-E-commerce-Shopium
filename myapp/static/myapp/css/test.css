@@ -1,0 +1,143 @@
+.smalcss{
+    font-size: small;
+    font-weight: 400;
+    color:red;
+}
+
+/* Hide Radio button */
+.rate > input{
+  display: none;
+}
+
+.rate{
+  display: inline-block;;
+  border: 0;
+}
+
+.rate > label{
+  float: right;
+}
+
+/* Showing the stars */
+.rate > label:before{
+  display: inline-block;
+  font-size: 1.1rem;
+  font-family: FontAwesome;
+  content: "\f005";
+  margin:0;
+  padding:0.3rem .2rem;
+  cursor: pointer;
+}
+
+/* Half star */
+.rate .half:before{
+  content: "\f089";
+  position: absolute;
+  padding-right: 0;
+}
+
+/* Click and hover */
+input:checked ~ label, label:hover ~ label{
+  color: #ffb503;
+}
+
+/* hover hightlight */
+input:checked + label:hover, input:checked ~ label:hover,input:checked ~ label:hover ~ label,
+label:hover ~ input:checked ~ label{
+  color: #cc9000;
+}
+
+.rating-star i{
+  color: #ffb503 !important;
+}
+
+
+ul.thumb {
+  margin:0 auto;
+  padding:0;
+  float:left;
+}
+
+ul.thumb li{
+  list-style: none;
+  margin:10px
+}
+
+ul.thumb li img{
+  width:60px;
+  height:80px;
+  border:1px solid grey;
+}
+
+.aMaAEs ._3uSWvT {
+padding: 2px 7px;
+border-radius: 14px;
+font-size: 16px;
+background-color: #26a541;
+vertical-align: baseline;
+}
+.spanhyh {
+margin-left: 12px;
+font-size: 16px;
+font-weight: 500;
+color: #388e3c;
+vertical-align: middle;
+}
+.sddsdd{
+color:green;
+}
+.smalgsd{
+text-decoration: line-through;
+color:grey;
+text-decoration:bold;
+
+}
+
+._3LWZlK {
+line-height: normal;
+display: inline-block;
+color: #fff;
+padding: 2px 4px 2px 6px;
+border-radius: 3px;
+font-weight: 500;
+font-size: 15px;
+vertical-align: middle;
+background-color: #ff9017;
+}
+._3LWZlKD {
+line-height: normal;
+display: inline-block;
+color: #fff;
+padding: 2px 4px 2px 6px;
+border-radius: 3px;
+font-weight: 500;
+font-size: 12px;
+vertical-align: middle;
+background-color: #ff9017;
+}
+.brandj {
+  color: #878787;
+  font-size: 16px;
+  display: block;
+  font-weight: 500;
+}
+
+.custom-file {
+    margin-bottom: 10px; /* Add some bottom margin for spacing */
+}
+
+.custom-file-input {
+    width: 50%; /* Set the width to half of the container */
+    display: inline-block; /* Display the input elements in a row */
+}
+
+/* Optional: Style the label to match the input */
+.custom-file-label {
+    display: inline-block;
+    width: 30%;
+    /* background-color: ; Example background color */
+    color: grey; /* Example text color */
+    padding: 8px;
+    border-radius: 5px;
+    cursor: pointer;
+}

@@ -1,0 +1,412 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+{% block content %}
+<section class="section-content padding-y bg">
+	<div class="container">
+					{% include 'myapp/includes/message.html' %}
+
+	</div>
+<div class="container">
+
+<!-- ============================ COMPONENT 1 ================================= -->
+<div class="card">
+	<div class="row no-gutters">
+		<aside class="col-md-6">
+<article class="gallery-wrap">
+	<div class="img-big-wrap mainImage">
+	 <center> <img src="{{data.images.url}}"> </center>
+	</div> <!-- img-big-wrap.// -->
+
+</article> <!-- gallery-wrap .end// -->
+
+
+<ul class="thumb">
+ <li>
+	 <a href="{{data.images.url}}" target="mainImage"><img src="{{data.images.url}}" alt="ProductGallery"></a>
+	 {% for image in product_gallery %}
+<a href="{{image.img.url}}" target="mainImage"><img src="{{image.img.url}}" alt="ProductGallery"></a>
+{% endfor %}
+ </li>
+</ul>
+
+
+
+		</aside>
+		<main class="col-md-6 border-left">
+
+
+<form action="{% url 'AddCart' data.id %}" method="POST"> {% csrf_token %}
+
+      <article class="content-body">
+				<small class="brandj">{{data.brand}}</small>
+      <h2 class="title">{{data.name}}</h2>
+			<span class="sddsdd">Special price</span>
+			<!-- <div class="mb-3">
+				<var class="price h4">${{data.price}}</var><del>$123.00</del>
+			</div> -->
+			<div class="d-flex align-items justify-content mt-2">
+			<h3 class="font-weight-semi-bold mb-4">र{{data.sprice}} <small class="smalgsd">र{{data.price}} </small><span class="spanhyh">{{percentage_discount}}% off</span> </h3>
+     </div>
+
+			<div class="text-primary mr-2">
+
+{% if data.countReview %}
+<div class="_3LWZlK">
+	{{average_rating |floatformat:1 }}
+
+
+		<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMyIgaGVpZ2h0PSIxMiI+PHBhdGggZmlsbD0iI0ZGRiIgZD0iTTYuNSA5LjQzOWwtMy42NzQgMi4yMy45NC00LjI2LTMuMjEtMi44ODMgNC4yNTQtLjQwNEw2LjUuMTEybDEuNjkgNC4wMSA0LjI1NC40MDQtMy4yMSAyLjg4Mi45NCA0LjI2eiIvPjwvc3ZnPg==" class="_1wB99o _19cuvx">
+</div>
+ <span style="font-size:14px;">{{data.countReview}} Reviews</span>
+</div>
+
+{% else %}
+<div class="_3LWZlK _3uSWvT">
+0
+		<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMyIgaGVpZ2h0PSIxMiI+PHBhdGggZmlsbD0iI0ZGRiIgZD0iTTYuNSA5LjQzOWwtMy42NzQgMi4yMy45NC00LjI2LTMuMjEtMi44ODMgNC4yNTQtLjQwNEw2LjUuMTEybDEuNjkgNC4wMSA0LjI1NC40MDQtMy4yMSAyLjg4Mi45NCA0LjI2eiIvPjwvc3ZnPg==" class="_1wB99o _19cuvx">
+</div>
+<span>No Rating Yet </span>
+</div>
+{% endif %}
+
+<style media="screen">
+
+</style>
+<br>
+<h4>Available Offer</h4>
+{% for offer in aval_offer %}
+
+    {% if offer.of1 %}
+        <p>{{ offer.of1 }}</p>
+    {% endif %}
+
+    {% if offer.of2 %}
+        <p>{{ offer.of2 }}</p>
+    {% endif %}
+
+    {% if offer.of3 %}
+        <p>{{ offer.of3 }}</p>
+    {% endif %}
+
+    {% if offer.of4 %}
+        <p>{{ offer.of4 }}</p>
+    {% endif %}
+
+    {% if offer.of5 %}
+        <p>{{ offer.of5 }}</p>
+    {% endif %}
+
+{% endfor %}
+      {% if data.description %}
+			<h4>Product Description</h4>
+      <p>{{data.description}}</p>
+			{% endif %}
+      <hr>
+        {% if data.variation_set.colors %}
+        	<div class="row">
+        		<div class="item-option-select">
+        			<h6>Choose Color</h6>
+              <select name="color" class="form-control" required>
+              <option value="" disabled selected>More Color</option>
+              {% for i in data.variation_set.colors %}
+              <option value="{{ i.variation_value }}">{{ i.variation_value | capfirst }}</option>
+              {% endfor %}
+              </select>
+        		</div>
+        	</div> <!-- row.// -->
+        {% endif %}
+
+        {% if data.variation_set.sizes %}
+      	<div class="row">
+      		<div class="item-option-select">
+      			<h6>Select Size</h6>
+            <select name="size" class="form-control" required>
+            <option value="" disabled selected>More Size</option>
+            {% for i in data.variation_set.sizes %}
+            <option value="{{ i.variation_value }}">{{ i.variation_value | capfirst }}</option>
+            {% endfor %}
+            </select>
+      		</div>
+      	</div> <!-- row.// -->
+        {% endif %}
+      	<hr>
+	        {% if data.stock <= 0 %}
+        <h5 class="text-danger">Out of Stock</h5>
+        {% else %}
+        <button type="submit" class="btn btn-primary"> <span class="text">Add to cart</span><i class="fas fa-shopping-cart"></i></button>
+           <!-- {% if in_cart %}
+      <a href="" class="btn  btn-success"> <span class="text">Added to Cart</span> <i class="fas fa-check"></i></a>
+      <a href="{% url 'Cart' %}" class="btn  btn-info"> <span class="text">View in Cart</span> <i class="fas fa-eye"></i></a>
+           {% else %} -->
+
+           <!-- {% endif %} -->
+           {% endif %}
+      </article> <!-- product-info-aside .// -->
+
+</form>
+
+
+		</main> <!-- col.// -->
+	</div> <!-- row.// -->
+</div> <!-- card.// -->
+<!-- ============================ COMPONENT 1 END .// ================================= -->
+<br>
+<div class="row">
+			<div class="col-md-9">
+
+
+   <form action="{% url 'SubmtReview' data.id %}" method="POST" enctype="multipart/form-data">
+   	{% csrf_token %}
+		<h5>Write Your Review</h5>
+<br>
+		<div>
+
+		<label>How do you rate this product?</label>
+		<br>
+		<div class="rate">
+		<input type="radio" name="rating" id="rating10" value="5" required><label for="rating10" title="5"></label>
+		<input type="radio" name="rating" id="rating9" value="4.5" required><label for="rating9" title="4.5" class="half"></label>
+		<input type="radio" name="rating" id="rating8" value="4" required><label for="rating8" title="4"></label>
+		<input type="radio" name="rating" id="rating7" value="3.5" required><label for="rating7" title="3.5" class="half"></label>
+		<input type="radio" name="rating" id="rating6" value="3" required><label for="rating6" title="3"></label>
+		<input type="radio" name="rating" id="rating5" value="2.5" required><label for="rating5" title="2.5" class="half"></label>
+		<input type="radio" name="rating" id="rating4" value="2" required><label for="rating4" title="2"></label>
+		<input type="radio" name="rating" id="rating3" value="1.5" required><label for="rating3" title="1.5" class="half"></label>
+		<input type="radio" name="rating" id="rating2" value="1" required><label for="rating2" title="1"></label>
+		<input type="radio" name="rating" id="rating1" value="0.5" required><label for="rating1" title="0.5" class="half"></label>
+		</div>
+    <br>
+		<!-- Review: -->
+		<input type="text" name="review" class="form-control" placeholder="Please give your feedback" rows="2" required>
+		<br>
+<label for="imageUpload">Select product images</label><br>
+<style>
+        .custom-file {
+            margin-bottom: 10px; /* Add some bottom margin for spacing */
+        }
+
+        .custom-file-input {
+            width: 50%; /* Set the width to half of the container */
+            display: inline-block; /* Display the input elements in a row */
+        }
+
+        /* Optional: Style the label to match the input */
+        .custom-file-label {
+            display: inline-block;
+            width: 30%;
+            background-color: ; /* Example background color */
+            color: grey; /* Example text color */
+            padding: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+
+<div class="custom-file">
+		<input type="file" class="custom-file-input" id="customFile" name="images" multiple>
+		<label class="custom-file-label" for="customFile">Select up to 5 Images</label>
+</div>
+
+<!-- <div class="custom-file">
+    <input type="file" class="custom-file-input" id="customFile">
+    <label class="custom-file-label" for="customFile">Choose file</label>
+  </div>
+	<div class="custom-file">
+	    <input type="file" class="custom-file-input" id="customFile">
+	    <label class="custom-file-label" for="customFile">Choose file</label>
+	  </div>
+		<div class="custom-file">
+		    <input type="file" class="custom-file-input" id="customFile">
+		    <label class="custom-file-label" for="customFile">Choose file</label>
+		  </div>
+			<div class="custom-file">
+			    <input type="file" class="custom-file-input" id="customFile">
+			    <label class="custom-file-label" for="customFile">Choose file</label>
+			  </div>
+				<div class="custom-file">
+				    <input type="file" class="custom-file-input" id="customFile">
+				    <label class="custom-file-label" for="customFile">Choose file</label>
+				  </div> -->
+
+
+		<br>
+		{% if user.is_authenticated %}
+			{% if orderproduct %}
+			<input type="submit" class="btn btn-warning" name="" value="Add">
+	    {% else %}
+				<p>You must purchase this product to post a review.</p>
+			{% endif %}
+		{% else %}
+		<p>You must logged in to post a review. <span><a href="{% url 'Login' %}">Login Now</a></span></p>
+    {% endif %}
+		</div>
+
+	 </form>
+	 <hr>
+
+
+
+
+
+						 	<header class="section-heading">
+						 	<h3>Customer Reviews </h3>
+						 	</header>
+
+                              {% if reviews %}
+
+															{% for r in reviews %}
+																	 <div id="comments">
+										    			<article class="box mb-3">
+															<div class="icontext w-100">
+																{% if r.user.userprofile.img %}
+																<img src="{{r.user.userprofile.img.url}}" class="img-xs icon rounded-circle">
+																{% endif %}
+																<div class="text">
+																	<span class="date text-muted float-md-right">{{r.created_at}}</span>
+																	<h6 class="mb-1">{{r.user.first_name|capfirst}} {{r.user.last_name|capfirst}}</h6>
+
+
+													         <!-- <i class="fa fa-star-half"  aria-hidden="false"></i> -->
+																	 <div class="_3LWZlKD">
+																	 	{{r.rating }}
+
+																	 		<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMyIgaGVpZ2h0PSIxMiI+PHBhdGggZmlsbD0iI0ZGRiIgZD0iTTYuNSA5LjQzOWwtMy42NzQgMi4yMy45NC00LjI2LTMuMjEtMi44ODMgNC4yNTQtLjQwNEw2LjUuMTEybDEuNjkgNC4wMSA0LjI1NC40MDQtMy4yMSAyLjg4Mi45NCA0LjI2eiIvPjwvc3ZnPg==" class="_1wB99o _19cuvx">
+																	 </div>
+
+																</div>
+															</div>
+																<div class="mt-3">
+																	<p>
+																		{{r.review|capfirst}}
+																	</p>
+																</div>
+
+
+
+<!-- Add these lines to your HTML file -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+														<div class="mt-3">
+															<p>
+																{% if r.img1 %}
+																<a data-fancybox="review-{{ r.id }}" href="{{r.img1.url}}">
+																<img widht="100px" height="100px" src="{{r.img1.url}}" alt="">
+																</a>
+															  {% endif %}
+
+
+												        {% if r.img2 %}
+																<a data-fancybox="review-{{ r.id }}" href="{{r.img2.url}}">
+																<img widht="100px" height="100px" src="{{r.img2.url}}" alt="">
+																</a>
+																{% endif %}
+
+																{% if r.img3 %}
+																<a data-fancybox="review-{{ r.id }}" href="{{r.img3.url}}">
+																<img widht="100px" height="100px" src="{{r.img3.url}}" alt="">
+																</a>
+																{% endif %}
+
+																{% if r.img4 %}
+																<a data-fancybox="review-{{ r.id }}" href="{{r.img4.url}}">
+																<img widht="100px" height="100px" src="{{r.img4.url}}" alt="">
+																</a>
+																{% endif %}
+
+																{% if r.img5 %}
+																<a data-fancybox="review-{{ r.id }}" href="{{r.img5.url}}">
+																<img widht="100px" height="100px" src="{{r.img5.url}}" alt="">
+																</a>
+																{% endif %}
+
+															</p>
+														</div>
+														<!-- Your template -->
+														<br>
+                            {% if request.user == r.user %}
+														<button type="button" onclick="window.location.href='{% url 'DeleteRev' r.id %}'" class="btn btn-danger btn-sm" name="button">Delete</button>
+														<button type="button" onclick="redirectToUpdate('{% url 'UpdateRev' r.id %}')" class="btn btn-info btn-sm" name="button">Update</button>
+                            {% endif %}
+														</article>
+														  {% endfor %}
+															</div>
+														 </div>
+                              {% else %}
+                              <h5>No Rating Yet</h5>
+                              {% endif %}
+
+
+																</div> <!-- col.// -->
+
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function(){
+		$('.thumb a').click(function(e){
+			e.preventDefault();
+			$('.mainImage img').attr('src', $(this).attr("href"));
+		})
+	})
+	// Add the following code if you want the name of the file appear on select
+	$(".custom-file-input").on("change", function() {
+	  var fileName = $(this).val().split("\\").pop();
+	  var fileName1 = 'Image File Selected';
+	  $(this).siblings(".custom-file-label").addClass("selected").html(fileName1);
+	});
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Get the value of the scroll_to query parameter
+        const scrollTarget = new URLSearchParams(window.location.search).get('scroll_to');
+
+        if (scrollTarget) {
+            // Scroll to the target element
+            const targetElement = document.getElementById(scrollTarget);
+
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth' });
+
+                // Remove the query parameter after scrolling
+                const newUrl = window.location.pathname + window.location.search.replace(`?scroll_to=${scrollTarget}`, '');
+                history.replaceState({}, document.title, newUrl);
+            }
+        }
+    });
+
+		function redirectToUpdate(updateUrl) {
+				// Get the current URL
+				var currentUrl = window.location.href;
+
+				// Append the current URL as a query parameter to the updateUrl
+				var fullUpdateUrl = updateUrl + '?next=' + encodeURIComponent(currentUrl);
+
+				// Redirect to the updateUrl with the current URL as a query parameter
+				window.location.href = fullUpdateUrl;
+		}
+
+
+		document.addEventListener('DOMContentLoaded', function () {
+		// Get the value of the scroll_to query parameter
+		const scrollTarget = new URLSearchParams(window.location.search).get('scroll_to');
+
+		if (scrollTarget) {
+				// Scroll to the target element
+				const targetElement = document.getElementById(scrollTarget);
+
+				if (targetElement) {
+						targetElement.scrollIntoView({ behavior: 'smooth' });
+				}
+		}
+});
+
+$(document).ready(function () {
+		$("[data-fancybox]").fancybox({
+				// You can customize Fancybox options here
+		});
+});
+
+</script>
+{% endblock %}

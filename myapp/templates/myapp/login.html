@@ -1,0 +1,78 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+{% block content %}
+<!-- ============================ COMPONENT LOGIN   ================================= -->
+<section class="section-content padding-y" style="min-height:84vh">
+{% if request.GET.command == 'verification' %}
+<center>
+<img width="200px" height="200px" src="{% static 'myapp/images/email.avif' %}" alt="">
+</center>
+<div class="container mx-auto alert alert-info text-center" role="alert" style="max-width: 1024px; margin-top:20px;">
+Thank you for registering with us. We have sent you a verification email to your email address {{ request.GET.email }}
+<br><br>
+Already verified? <a href="{% url 'Login' %}">Sign in</a>
+</div>
+</section>
+
+{% else %}
+
+<div class="card mx-auto" style="max-width: 500px; margin-top:10px;">
+  <center>  <img style="margin-top:40px;" width="100px" height="100px"src="{% static 'myapp/images/login1.png' %}" alt=""><h4 class="card-title mb-4">Sign in</h4></center>
+
+<div class="card-body">
+
+
+{% if messages %}
+{% for m in messages  %}
+<div class="container" id="message">
+
+<div {% if m.tags %} class="alert alert-{{ m.tags }}"{% endif %}>
+    {{m}}
+    </div>
+</div>
+{% endfor %}
+{% endif %}
+
+<form action="{% url 'Login' %}" method="POST"> {% csrf_token %}
+<div class="form-group">
+ <input type="email" class="form-control" required placeholder="Email Address" name="email" id="email">
+</div> <!-- form-group// -->
+<div class="form-group">
+<input type="password" class="form-control" required placeholder="Password" name="password" id="password" >
+</div> <!-- form-group// -->
+
+<div class="form-group">
+<a href="{% url 'ForgotPassword' %}" class="float-right">Forgot password?</a>
+
+</div> <!-- form-group form-check .// -->
+<div class="form-group">
+  <button type="submit" class="btn btn-warning btn-block">Login</button>
+</div> <!-- form-group// -->
+</form>
+</div> <!-- card-body.// -->
+</div> <!-- card .// -->
+
+<p class="text-center mt-4">Don't have account? <a href="{% url 'Register' %}">Sign up</a></p>
+</section>
+<!-- ============================ COMPONENT LOGIN  END.// ================================= -->
+
+<style>
+    .alert-error {
+        color: #821b1b;
+        background-color: #fed6d6;
+        border-color: #fec6c6;
+    }
+
+    .alert {
+        position: relative;
+        padding: 0.75rem 1.25rem;
+        margin-bottom: 1rem;
+        border: 1px solid transparent;
+        border-radius: 0.37rem;
+    }
+
+
+</style>
+
+{% endif %}
+{% endblock %}
