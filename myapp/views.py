@@ -16,6 +16,7 @@ from django.utils.http import urlsafe_base64_encode , urlsafe_base64_decode
 from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMessage
+from django.core.mail import EmailMultiAlternatives
 import requests
 import datetime
 from .forms import *
@@ -346,7 +347,8 @@ def payments(request):
         'order':order,
     })
     to_email = request.user.email
-    send_email = EmailMessage(mail_subject,message,to=[to_email])
+    send_email = EmailMultiAlternatives(mail_subject,message,to=[to_email])
+    send_email.attach_alternative(message, "text/html")
     send_email.send()
 
     data = {
@@ -443,7 +445,8 @@ def register(request):
                 'token':default_token_generator.make_token(user),
             })
             to_email = e
-            send_email = EmailMessage(mail_subject,message,to=[to_email])
+            send_email = EmailMultiAlternatives(mail_subject,message,to=[to_email])
+            send_email.attach_alternative(message, "text/html")
             send_email.send()
             # messages.success(request,'Your account is created.')
             return redirect('/accounts/login/?command=verification&email='+e)
@@ -866,7 +869,8 @@ def forgotpassword(request):
                 'token':default_token_generator.make_token(user),
             })
             to_email = email
-            send_email = EmailMessage(mail_subject,message,to=[to_email])
+            send_email = EmailMultiAlternatives(mail_subject,message,to=[to_email])
+            send_email.attach_alternative(message, "text/html")
             send_email.send()
 
             messages.success(request,'Password reset email has been sent to your email address')
@@ -902,6 +906,7 @@ def passwordReset(request):
             uid = request.session.get('uid')
             user = Account.objects.get(pk=uid)
             user.set_password(password)
+            user.save()
             messages.success(request,'Password reset successful')
             return redirect('Login')
 

@@ -133,7 +133,7 @@
 	        {% if data.stock <= 0 %}
         <h5 class="text-danger">Out of Stock</h5>
         {% else %}
-        <button type="submit" class="btn btn-primary"> <span class="text">Add to cart</span><i class="fas fa-shopping-cart"></i></button>
+        <button type="submit" class="btn btn-warning"> <span class="text">Add to cart</span><i class="fas fa-shopping-cart"></i></button>
            <!-- {% if in_cart %}
       <a href="" class="btn  btn-success"> <span class="text">Added to Cart</span> <i class="fas fa-check"></i></a>
       <a href="{% url 'Cart' %}" class="btn  btn-info"> <span class="text">View in Cart</span> <i class="fas fa-eye"></i></a>
@@ -206,28 +206,6 @@
 		<input type="file" class="custom-file-input" id="customFile" name="images" multiple>
 		<label class="custom-file-label" for="customFile">Select up to 5 Images</label>
 </div>
-
-<!-- <div class="custom-file">
-    <input type="file" class="custom-file-input" id="customFile">
-    <label class="custom-file-label" for="customFile">Choose file</label>
-  </div>
-	<div class="custom-file">
-	    <input type="file" class="custom-file-input" id="customFile">
-	    <label class="custom-file-label" for="customFile">Choose file</label>
-	  </div>
-		<div class="custom-file">
-		    <input type="file" class="custom-file-input" id="customFile">
-		    <label class="custom-file-label" for="customFile">Choose file</label>
-		  </div>
-			<div class="custom-file">
-			    <input type="file" class="custom-file-input" id="customFile">
-			    <label class="custom-file-label" for="customFile">Choose file</label>
-			  </div>
-				<div class="custom-file">
-				    <input type="file" class="custom-file-input" id="customFile">
-				    <label class="custom-file-label" for="customFile">Choose file</label>
-				  </div> -->
-
 
 		<br>
 		{% if user.is_authenticated %}

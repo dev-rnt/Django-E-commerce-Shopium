@@ -99,7 +99,7 @@ class Account(AbstractBaseUser):
         return True
 
     def __str__(self):
-        return self.phone_number
+        return str(self.phone_number)
 
 class UserProfile(models.Model):
     user = models.OneToOneField(Account,on_delete=models.CASCADE)

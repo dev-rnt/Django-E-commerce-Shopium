@@ -20,7 +20,7 @@
       <div class="form-row">
         <div class="col form-group">
           <label for="">First Name</label>
-          <input type="text" name="first_name" class="form-control" required>
+          <input type="text"   name="first_name" class="form-control" required>
         </div>
         <div class="col form-group">
           <label for="">Last Name</label>
@@ -33,9 +33,9 @@
           <input type="email" name="email" class="form-control" required>
         </div>
         <div class="col form-group">
-          <label for="">Phone Number</label>
-          <input type="text" name="phone" class="form-control" required>
-        </div>
+          <label for="phone">Phone Number</label>
+          <input type="text" name="phone" id="phone" class="form-control" required>
+      </div>
       </div>
       <div class="form-row">
         <div class="col form-group">
@@ -116,8 +116,8 @@
       {% endfor %}
       </tbody>
       </table>
-      <button type="submit" name="submit" class="btn btn-primary btn-block">Place Order</button>
-			<a href="{% url 'Store' %}" class="btn btn-light btn-block">Continue Shopping</a>
+      <button type="submit" name="submit" class="btn btn-warning btn-block">Place Order</button>
+			<a href="{% url 'Store' %}" class="btn btn-info btn-block">Continue Shopping</a>
 		</div> <!-- card-body.// -->
 		</div> <!-- card.// -->
     </form>
@@ -132,5 +132,23 @@
 </div> <!-- container .//  -->
 </section>
 <!-- ========================= SECTION CONTENT END// ========================= -->
+<script>
+  function validatePhoneNumber() {
+      var phoneNumber = document.getElementById('phone').value;
+      // Regular expression to validate Indian phone number format
+      var regex = /^\d{10}$/; // Assuming a 10-digit number without any formatting
 
+      if (!regex.test(phoneNumber)) {
+          alert("Please enter a valid Indian phone number.");
+          return false;
+      }
+      return true;
+  }
+
+  document.querySelector('form').addEventListener('submit', function(e) {
+      if (!validatePhoneNumber()) {
+          e.preventDefault();
+      }
+  });
+</script>
 {% endblock %}

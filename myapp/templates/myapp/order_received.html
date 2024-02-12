@@ -1,9 +1,26 @@
 {% autoescape off %}
-
-Hi {{user.first_name}}
-
-Your Order Has Been recieved
-
-Order Number: {{order.order_number}}
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Confirmation</title>
+</head>
+<body>
+    <div style="font-family: Arial, sans-serif; background-color: #f5f5f5; margin: 0; padding: 0;">
+        <div style="max-width: 600px; margin: 20px auto; padding: 20px; background-color: #fff; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+            <center>
+            <h1>Hi {{ user.first_name }} {{ user.last_name }}</h1>
+            <h3>Your order has been recieved</h3>
+            <h5>Order Number: {{order.order_number}}</h5>
+            <p>Order will be delivered at {{order.address_line_1}}</p>
+            <p>Total:Rs{{order.order_total}}</p>
+            <!-- Apply inline CSS directly to the anchor tag -->
+            <p style="margin-top: 20px; font-style: italic;">If you think it's not you, please ignore this email.</p>
+            </center>
+        </div>
+    </div>
+</body>
+</html>
 {% endautoescape %}
+

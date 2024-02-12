@@ -12,14 +12,6 @@ class ContactForm(forms.ModelForm):
 class UpdateRevForm(forms.ModelForm):
     review = forms.CharField(label='Review',label_suffix='', required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Review'}))
     rating = forms.FloatField(label='Rating', label_suffix='',required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Rating'}))
-    # img1 = forms.ImageField(label='Images 1', required=False, widget=forms.FileInput(attrs={'class': 'labelasas'}))
-    # img2 = forms.ImageField(label='Images 2', required=False, widget=forms.FileInput(attrs={'class': 'labelasas'}))
-    # img3 = forms.ImageField(label='Images 3', required=False, widget=forms.FileInput(attrs={'class': 'labelasas'}))
-    # img4 = forms.ImageField(label='Images 4', required=False, widget=forms.FileInput(attrs={'class': 'labelasas'}))
-    # img5 = forms.ImageField(label='Images 5', required=False, widget=forms.FileInput(attrs={'class': 'labelasas'}))
-
-
-
 
     def clean_rating(self):
         rating = self.cleaned_data['rating']

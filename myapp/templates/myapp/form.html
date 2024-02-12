@@ -70,9 +70,8 @@
 <p>
   {{form.rating.label_tag}}
   {{form.rating}}</p>
-  <style>
+  <small class="smalcss">{{form.rating.errors | striptags}} </small>
 
-      </style>
       <h6>Update Product Images</h6>
   <div class="custom-file">
       <input type="file" class="custom-file-input" id="customFile1" name="img1">

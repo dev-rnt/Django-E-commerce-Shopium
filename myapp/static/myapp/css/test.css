@@ -141,3 +141,20 @@ background-color: #ff9017;
     border-radius: 5px;
     cursor: pointer;
 }
+
+a{
+  color: #ff9017;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+
+a:hover{
+  color: black;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+.widget-header i {
+  color: #f19317;
+}
