@@ -89,7 +89,7 @@
 
 
 <div class="row">
-	{% for d in data %}
+	{% for d, discount in product_discounts %}
 	<div class="col-md-3">
 		<div class="card card-product-grid">
 			<a href="{{ d.get_url }}" class="img-wrap"> <img src="{{d.images.url}}"> </a>
@@ -101,7 +101,7 @@
 				<div class="d-flex align-items-center justify-content-center mt-2">
 				<h5>र{{d.sprice}}</h5><h6 class="text-muted ml-2"><del>र{{d.price}}</del></h6>
 				</div>
-				<span class="spanhyh">{{product_discounts}}% off</span> </center>
+				<span class="spanhyh">{{discount}}% off</span> </center>
 			</figcaption>
 		</div>
 	</div>
@@ -131,7 +131,7 @@
 
 
 <div class="row">
-	{% for d in data1 %}
+	{% for d , discount in latest_product_discounts %}
 	<div class="col-md-3">
 		<div class="card card-product-grid">
 			<a href="{{ d.get_url }}" class="img-wrap"> <img src="{{d.images.url}}"> </a>
@@ -143,7 +143,7 @@
 				<div class="d-flex align-items-center justify-content-center mt-2">
 				<h5>र{{d.sprice}}</h5><h6 class="text-muted ml-2"><del>र{{d.price}}</del></h6>
 				</div>
-				<span class="spanhyh">{{product_discounts}}% off</span> </center>
+				<span class="spanhyh">{{discount}}% off</span> </center>
 			</figcaption>
 		</div>
 	</div>

@@ -538,10 +538,12 @@ def logout(request):
     messages.info(request,'You are logged out')
     return redirect('Login')
 
+
 def home(request):
     products = Product.objects.filter(is_available=True)[:8]
     latest_products = Product.objects.filter(is_available=True).order_by('-created_at')[:4]
 
+    product_discounts = [] 
 
     for product in products:
         original_price = product.price
@@ -555,10 +557,32 @@ def home(request):
             return round(percentage_discount, 2)  # Round to two decimal places
 
         percentage_discount = round(calculate_percentage_discount(original_price, selling_price))
-    context = {'data': products, 'data1': latest_products, 'product_discounts': percentage_discount}
+
+        product_discounts.append((product, percentage_discount))
+
+    latest_product_discounts = []  # List to store tuples of (product, discount)
+
+    # Calculate discounts for latest products
+    for product in latest_products:
+        original_price = product.price
+        selling_price = product.sprice
+
+        def calculate_percentage_discount(original_price, selling_price):
+            if original_price == 0:
+                return 0  # Handle the case where the original price is zero to avoid division by zero
+
+            percentage_discount = ((original_price - selling_price) / original_price) * 100
+            return round(percentage_discount, 2)  # Round to two decimal places
+
+        percentage_discount = round(calculate_percentage_discount(original_price, selling_price))
+
+        latest_product_discounts.append((product, percentage_discount))
+
+    context = {
+        'product_discounts': product_discounts,
+        'latest_product_discounts': latest_product_discounts
+    }
     return render(request, 'myapp/index.html', context)
-
-
 
 
 def store(request, category_slug=None):
