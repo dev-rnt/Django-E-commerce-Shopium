@@ -37,7 +37,6 @@ def contact(request):
         email = request.POST.get('email')
         subject = request.POST.get('subject')
         message = request.POST.get('message')
-        print('data',name,email,subject,message)
         reg = Contact(name=name,email=email,subject=subject,message=message)
         reg.save()
         messages.info(request,'Your form was submitted successfully!')
@@ -45,8 +44,6 @@ def contact(request):
 
 def updaterev(request, user_id):
     next_url = request.GET.get('next', '/')
-    print('next_url', next_url)
-
     try:
         data = ReviewRating.objects.get(id=user_id)
     except ReviewRating.DoesNotExist:
@@ -97,14 +94,14 @@ def submtreview(request, product_id):
     url = request.META.get('HTTP_REFERER')
 
     if request.method == 'POST':
-        form = ReviewForm(request.POST, request.FILES)  # Use request.FILES for file uploads
+        form = ReviewForm(request.POST, request.FILES)  
         if form.is_valid():
             data = form.save(commit=False)
             uploaded_files = request.FILES.getlist('images')
 
             # Loop through the first 5 files and assign them to the corresponding fields
             for i in range(min(len(uploaded_files), 5)):
-                field_name = f'img{i + 1}'  # Field names are img1, img2, ..., img5
+                field_name = f'img{i + 1}' 
                 setattr(data, field_name, uploaded_files[i])
             data.product_id = product_id
             data.user_id = request.user.id
@@ -112,8 +109,6 @@ def submtreview(request, product_id):
             data.save()
 
             messages.success(request, 'Thank you! Your review has been submitted.')
-            # return redirect(url)
-            # return redirect(url, anchor='comments')
             referer = request.META.get('HTTP_REFERER', '/')
             url_with_anchor = f"{referer}?scroll_to=comments"
             return redirect(url_with_anchor)
@@ -487,8 +482,6 @@ def login(request):
                         ex_var_list.append(list(existing_variation))
                         id.append(item.id)
 
-                    # product_variation = [1,2,3,4,6]
-                    # ex_var_list = [4,6,3,5]
                     for pr in list1:
                         if pr in ex_var_list:
                             index = ex_var_list.index(pr)
@@ -503,20 +496,13 @@ def login(request):
                                 item.user = user
                                 item.save()
 
-                    # for item in cart_item:
-                    #     item.user = user
-                    #     item.save()
             except:
                 pass
             auth.login(request,user)
-            # messages.success(request,'You are now logged in')
             url = request.META.get('HTTP_REFERER')
             try:
                 query = requests.utils.urlparse(url).query
-                print('Query-->',query)
-                print('------------')
                 params = dict(x.split('=') for x in query.split('&'))
-                print(params)
                 if 'next' in params:
                     nextPage = params['next']
                     return redirect(nextPage)
@@ -599,7 +585,6 @@ def store(request, category_slug=None):
     # Apply size filter
     if size:
         data = data.filter(variation__variation_value=size)
-        print('size',data)
 
     # Apply price filter
     if price is not None and price2 is not None:
@@ -608,9 +593,7 @@ def store(request, category_slug=None):
     paginator = Paginator(data, 10)
     page = request.GET.get('page')
     page_products = paginator.get_page(page)
-    print('page_products',page_products)
     data1 = data.count()
-    print('data1',data1)
 
     context = {'data': page_products, 'data1': data1}
     return render(request, 'myapp/store.html', context)
@@ -1034,7 +1017,6 @@ def orderdetails(request,order_id):
     order_detail = OrderProduct.objects.filter(order__order_number=order_id)
     order = Order.objects.get(order_number=order_id)
     payment = order_detail.first().payment if order_detail.exists() else None
-    print(payment)
     subtotal = 0
     for i in order_detail:
         subtotal += i.product.sprice * i.quantity

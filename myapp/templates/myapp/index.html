@@ -1,55 +1,91 @@
 {% extends 'myapp/base.html' %}
 {% load static %}
 {% block content %}
+
+
+<style>
+	@media (min-width: 376px) {
+	  #hiddelaptopnitems {
+		display: none;
+	  }
+	}	
+</style>
 <!-- ========================= SECTION MAIN ========================= -->
-<section class="section-intro padding-y-sm">
+<section id="hiddelaptopnitems">
+	<div>
+		<img class="imgsrgg" src="{% static 'myapp/images/py11.jpg' %}" >
+	</div>
+</section>
+
+<section id="hiddenitems" class="section-intro padding-y-sm">
 <div class="container">
-<div class="intro-banner-wrap">
+<div  class="intro-banner-wrap">
 	<img src="{% static 'myapp/images/py11.jpg' %}" class="img-fluid rounded">
 </div> 
-</div> <!-- container //  -->
+</div>
 </section>
-<!-- ========================= SECTION MAIN END// ========================= -->
-<br>
-<br>
-<br>
+
+
+
 <!-- Featured Start -->
  <div class="container">
-		 <div class="row">
-				 <div class="col-md-3">
-						 <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
-								 <h1 class="fa fa-check text-warning m-0 mr-3"></h1>
-								 <h5 class="font-weight-semi-bold m-0">Quality Product</h5>
-						 </div>
-				 </div>
-				 <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-						 <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
-								 <h1 class="fa fa-shipping-fast text-warning m-0 mr-2"></h1>
-								 <h5 class="font-weight-semi-bold m-0">Free Shipping</h5>
-						 </div>
-				 </div>
-				 <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-						 <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
-								 <h1 class="fas fa-exchange-alt text-warning m-0 mr-3"></h1>
-								 <h5 class="font-weight-semi-bold m-0">14-Day Return</h5>
-						 </div>
-				 </div>
-				 <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-						 <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
-								 <h1 class="fa fa-phone-volume text-warning m-0 mr-3"></h1>
-								 <h5 class="font-weight-semi-bold m-0">24/7 Support</h5>
-						 </div>
-				 </div>
-		 </div>
- </div>
+
+<div id="hiddelaptopnitems" class="row1">
+<div class="thhhhh">
+	<h1 class="fa fa-check text-warning m-0 mr-3"></h1>
+	<h5>Quality product</h5>
+</div>
+<div class="thhhhh">
+	<h1 class="fa fa-shipping-fast text-warning m-0 mr-2"></h1>
+	<h5>Free Shipping</h5>
+</div>
+<div class="thhhhh">
+	<h1 class="fas fa-exchange-alt text-warning m-0 mr-3"></h1>
+	<h5>14-Day Return</h5>
+</div>
+<div class="thhhhh">
+	<h1 class="fa fa-phone-volume text-warning m-0 mr-3"></h1>
+	<h5>24/7 Support</h5>
+</div>
+</div>	
+
+
+<div id="hiddenitems" class="row">
+		<div class="col-md-3">
+				<div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
+						<h1 class="fa fa-check text-warning m-0 mr-3"></h1>
+						<h5 class="font-weight-semi-bold m-0">Quality Product</h5>
+				</div>
+		</div>
+		<div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+				<div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
+						<h1 class="fa fa-shipping-fast text-warning m-0 mr-2"></h1>
+						<h5 class="font-weight-semi-bold m-0">Free Shipping</h5>
+				</div>
+		</div>
+		<div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+				<div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
+						<h1 class="fas fa-exchange-alt text-warning m-0 mr-3"></h1>
+						<h5 class="font-weight-semi-bold m-0">14-Day Return</h5>
+				</div>
+		</div>
+		<div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+				<div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
+						<h1 class="fa fa-phone-volume text-warning m-0 mr-3"></h1>
+						<h5 class="font-weight-semi-bold m-0">24/7 Support</h5>
+				</div>
+		</div>
+</div>
+
  <!-- Featured End -->
-<!-- ========================= SECTION  ========================= -->
+
 <section class="section-name padding-y-sm">
 <div class="container">
 
 <header class="section-heading">
 	<h3 class="section-title">Categories</h3>
 </header><!-- sect-heading -->
+
 
 
 <div class="row">
@@ -73,12 +109,13 @@
 </div> <!-- row.// -->
 
 
-</div><!-- container // -->
+
+
+
+</div>
 </section>
 
-<!-- ========================= SECTION  END// ========================= -->
 
-<!-- ========================= SECTION  ========================= -->
 <section class="section-name padding-y-sm">
 <div class="container">
 
@@ -88,9 +125,10 @@
 </header><!-- sect-heading -->
 
 
-<div class="row">
+
+<div id="hiddelaptopnitems" class="row">
 	{% for d, discount in product_discounts %}
-	<div class="col-md-3">
+	<div class="rowsddd">
 		<div class="card card-product-grid">
 			<a href="{{ d.get_url }}" class="img-wrap"> <img src="{{d.images.url}}"> </a>
 			<figcaption class="info-wrap">
@@ -108,16 +146,41 @@
 	{% endfor %} <!-- col.// -->
 </div> <!-- row.// -->
 
-</div><!-- container // -->
+
+
+<div id="hiddenitems" class="row">
+	{% for d, discount in product_discounts %}
+	<div class="col-md-3">
+		<div class="card card-product-grid">
+			<a href="{{ d.get_url }}" class="img-wrap"> <img src="{{d.images.url}}"> </a>
+			<figcaption class="info-wrap">
+					<center>
+								<small class="brandj">{{d.brand}}</small>
+<a href="{{ d.get_url }}" class="title">{{d.name}}</a>
+				<!-- <div class="price mt-1">${{d.price}}</div> <!-- price-wrap.// -->
+				<div class="d-flex align-items-center justify-content-center mt-2">
+				<h5>र{{d.sprice}}</h5><h6 class="text-muted ml-2"><del>र{{d.price}}</del></h6>
+				</div>
+				<span class="spanhyh">{{discount}}% off</span> </center>
+			</figcaption>
+		</div>
+	</div>
+	{% endfor %} 
+</div> 
+</div>
 </section>
+<div>
+	<img src="{% static 'myapp/images/py9.jpg' %}" width="100%">
+</div>
+
+
+
+
 
 <!-- ========================= SECTION  END// ========================= -->
 <section class="section-intro padding-y-sm">
 <div class="container">
 
-<div class="intro-banner-wrap">
-	<img src="{% static 'myapp/images/py9.jpg' %}" height="200px" width="100%">
-</div>
 
 </div> <!-- container //  -->
 </section>
@@ -130,9 +193,11 @@
 </header><!-- sect-heading -->
 
 
-<div class="row">
+
+
+<div id="hiddelaptopnitems" class="row">
 	{% for d , discount in latest_product_discounts %}
-	<div class="col-md-3">
+	<div class="rowsddd">
 		<div class="card card-product-grid">
 			<a href="{{ d.get_url }}" class="img-wrap"> <img src="{{d.images.url}}"> </a>
 			<figcaption class="info-wrap">
@@ -150,22 +215,32 @@
 	{% endfor %} <!-- col.// -->
 </div> <!-- row.// -->
 
-</div><!-- container // -->
+
+
+
+
+<div id="hiddenitems" class="row">
+	{% for d , discount in latest_product_discounts %}
+	<div class="col-md-3">
+		<div class="card card-product-grid">
+			<a href="{{ d.get_url }}" class="img-wrap"> <img src="{{d.images.url}}"> </a>
+			<figcaption class="info-wrap">
+					<center>
+								<small class="brandj">{{d.brand}}</small>
+	<a href="{{ d.get_url }}" class="title">{{d.name}}</a>
+				<!-- <div class="price mt-1">${{d.price}}</div> <!-- price-wrap.// -->
+				<div class="d-flex align-items-center justify-content-center mt-2">
+				<h5>र{{d.sprice}}</h5><h6 class="text-muted ml-2"><del>र{{d.price}}</del></h6>
+				</div>
+				<span class="spanhyh">{{discount}}% off</span> </center>
+			</figcaption>
+		</div>
+	</div>
+	{% endfor %}
+</div> 
+
+
+</div>
 </section>
-
-<!-- ========================= SECTION  END// ========================= -->
-
-
-
-
-
-<style>
-    .custom-bg-color {
-        background-color: #e4e4e4 !important; /* Replace with the desired background color */
-        padding: 10px; /* Add padding if needed */
-        border-radius: 8px; /* Optional: Add border-radius for rounded corners */
-    }
-
-</style>
-
+</div>
 {% endblock %}

@@ -158,3 +158,30 @@ a:hover{
 .widget-header i {
   color: #f19317;
 }
+
+.ddd{
+  background-color: grey;
+}
+
+
+.custom-bg-color {
+  background-color: #e4e4e4 !important; /* Replace with the desired background color */
+  padding: 10px; /* Add padding if needed */
+  border-radius: 8px; /* Optional: Add border-radius for rounded corners */
+}
+
+
+a.asdkgask:hover{
+  color:  #ff9017;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+
+.row1 {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -10px;
+  margin-left: -10px;
+  margin-top: 55px;
+}
