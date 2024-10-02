@@ -9,6 +9,8 @@ from .forms import Registration
 from django.contrib import messages , auth
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from django.contrib.auth import authenticate, login
+from .models import Account
 
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
@@ -21,6 +23,7 @@ import requests
 import datetime
 from .forms import *
 import json
+from django.conf import settings
 
 
 from reportlab.pdfgen import canvas
@@ -455,7 +458,7 @@ def register(request):
 
 
 
-def login(request):
+def login_form(request):
     if request.method == 'POST':
         email = request.POST['email']
         passw = request.POST['password']
@@ -511,8 +514,9 @@ def login(request):
                   return redirect('Dashboard')
 
         else:
+            
             messages.error(request,'Invalid login credentials please try again')
-            return redirect('Login')
+            return redirect('Login')      
     return render(request,'myapp/login.html')
 
 
@@ -963,29 +967,61 @@ def my_order(request):
     return render(request,'myapp/my_order.html',context)
 
 
+
+
+
+
+
+
 def editprofile(request):
-    userprofile = get_object_or_404(UserProfile,user=request.user)
+    # Get or create the user profile for the logged-in user
+    userprofile, created = UserProfile.objects.get_or_create(user=request.user)
+
     if request.method == 'POST':
-        form = UserForm(request.POST,instance=request.user)
-        pform = UserProfileForm(request.POST,request.FILES,instance=userprofile)
+        form = UserForm(request.POST, instance=request.user)
+        pform = UserDetailsForm(request.POST, request.FILES)  # Include POST and FILES data
+
         if form.is_valid() and pform.is_valid():
+            # Save the user form data
             form.save()
-            pform.save()
-            messages.success(request,'Your profile has been updated.')
+
+            # Save the user profile data
+            userprofile.address_line_1 = pform.cleaned_data.get('address_line_1')
+            userprofile.address_line_2 = pform.cleaned_data.get('address_line_2')
+            userprofile.city = pform.cleaned_data.get('city')
+            userprofile.state = pform.cleaned_data.get('state')
+            userprofile.country = pform.cleaned_data.get('country')
+
+            # Handle image upload if available
+            if request.FILES.get('profile_image'):
+                uploaded_image = request.FILES['profile_image']
+                userprofile.img = uploaded_image
+
+            userprofile.save()
+
+            messages.success(request, 'Your profile has been updated.')
             return redirect('EditProfile')
     else:
         form = UserForm(instance=request.user)
-        pform = UserProfileForm(instance=userprofile)
+        
+        # Prepopulate the UserDetailsForm with existing data from the userprofile
+        pform = UserDetailsForm(initial={
+            'address_line_1': userprofile.address_line_1,
+            'address_line_2': userprofile.address_line_2,
+            'city': userprofile.city,
+            'state': userprofile.state,
+            'country': userprofile.country,
+        })
 
     context = {
-    'form':form,
-    'pform':pform,
-    'userprofile':userprofile
+        'form': form,
+        'pform': pform,
+        'userprofile': userprofile,
     }
 
-    return render(request,'myapp/editprofile.html',context)
+    return render(request, 'myapp/editprofile.html', context)
 
-
+    
 def changepass(request):
     if request.method == 'POST':
         curpass = request.POST['currpass']
@@ -1030,3 +1066,155 @@ def orderdetails(request,order_id):
 
 
     return render(request,'myapp/orderdetails.html',context)
+
+
+
+#OTP 
+import random
+from django.core.mail import send_mail
+
+def generate_otp():
+    return random.randint(100000, 999999)
+
+def send_otp(email, otp):
+    subject = 'Your OTP Code'
+    message = f'Your OTP code is {otp}'
+    email_from = 'trash29172@gmail.com'  # Replace with your email
+    recipient_list = [email]
+    send_mail(subject, message, email_from, recipient_list)
+
+def email_login_or_signup(request):
+    # Step 1: Ask for email and send OTP
+    if 'otp_verified' not in request.session:  # OTP not yet verified
+        if request.method == 'POST':
+            form = EmailLoginForm(request.POST)
+            if form.is_valid():
+                email = form.cleaned_data['email']
+                request.session['email'] = email  # Store email in session for later use
+
+                # Check if user exists
+                if Account.objects.filter(email=email).exists():
+                    request.session['existing_user'] = True  # Mark as existing user
+                else:
+                    request.session['existing_user'] = False  # Mark as new user
+
+                # Generate and send OTP
+                otp = generate_otp()
+                request.session['otp'] = otp  # Store OTP in session for verification
+                send_otp(email, otp)  # Send OTP to the provided email
+                
+                return redirect('verify_otp')  # Redirect to OTP verification page
+        else:
+            form = EmailLoginForm()
+
+        return render(request, 'myapp/login.html', {'form': form})
+
+    else:
+        # Step 2: After OTP verification, handle the next steps (user creation or login)
+        return redirect('verify_otp')  # Redirect to OTP verification page if OTP already sent
+
+
+def ask_for_password(request):
+    if request.method == 'POST':
+        password_form = PasswordForm(request.POST)
+        if password_form.is_valid():
+            password = password_form.cleaned_data['password']
+            email = request.session['email']
+            user = authenticate(request, username=email, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('Home')  # Redirect to home page after login
+            else:
+                # Add an error message for invalid password
+                password_form.add_error(None, "Invalid password. Please try again.")
+    else:
+        password_form = PasswordForm()
+    
+    return render(request, 'myapp/password_prompt.html', {'form': password_form})
+
+
+
+
+
+def verify_otp(request):
+    if request.method == 'POST':
+        otp_form = OTPForm(request.POST)
+        if otp_form.is_valid():
+            input_otp = otp_form.cleaned_data['otp']
+            session_otp = request.session.get('otp')
+
+            if session_otp is None:
+                return redirect('email_login')
+
+            if input_otp == str(session_otp):
+                # OTP is correct, set session flag and redirect
+                request.session['otp_verified'] = True
+
+                # Clean unnecessary session data
+                del request.session['otp']
+
+                email = request.session.get('email', '')
+                
+                # For existing users, log them in
+                if request.session.get('existing_user'):
+                    user = Account.objects.get(email=email)
+                    login(request, user)  # Log the user in
+
+                    # Clean session data
+                    del request.session['otp_verified']
+                    del request.session['existing_user']
+
+                    # Redirect to home page after successful login
+                    return redirect('Home')
+                else:
+                    # Redirect to user details form for new user
+                    return redirect('user_details_form')
+            else:
+                # Invalid OTP, retry OTP verification
+                messages.error(request, 'Invalid OTP, please try again.')
+                return redirect('verify_otp')
+    
+    else:
+        otp_form = OTPForm()
+
+    # Display the OTP verification form
+    email = request.session.get('email', '')  # Get email from session if available
+    return render(request, 'myapp/verifyotp.html', {'form': otp_form, 'email': email})
+
+
+
+
+
+
+
+def user_details_form(request):
+    if not request.session.get('otp_verified'):
+        return redirect('email_login')  # Redirect if OTP isn't verified
+
+    if request.method == 'POST':
+        user_details_form = UserDetailsForm(request.POST)
+        if user_details_form.is_valid():
+
+            # Collect the form data
+            first_name = user_details_form.cleaned_data['first_name']
+            last_name = user_details_form.cleaned_data['last_name']
+            phone_number = user_details_form.cleaned_data['phone_number']
+            email = request.session['email']
+
+            # Create the new user with is_active set to True
+            user = Account.objects.create_user(
+                email=email,
+                first_name=first_name,
+                last_name=last_name,
+                phone_number=phone_number,
+            )
+            user.is_active = True  # Set is_active to True
+            user.save()  # Save the changes to the user instance
+
+            # Log the user in
+            login(request, user)
+            return redirect('Home')  # Redirect to home page after successful registration
+    else:
+        user_details_form = UserDetailsForm()
+
+    return render(request, 'myapp/user_details_form.html', {'form': user_details_form})

@@ -2,219 +2,160 @@
 {% load static %}
 {% block content %}
 
-
 <style>
-	@media (min-width: 376px) {
-	  #hiddelaptopnitems {
-		display: none;
-	  }
-	}	
+    @media (min-width: 376px) {
+        #hiddelaptopnitems {
+            display: none;
+        }
+    }
+	.googfont{
+		font-family:Roboto Mono;
+        font-size:25px; 
+	}
+    .mantitle{
+        font-family:Noto Sans Warang Citi;
+        color:#7c7676;
+    }
 </style>
+
 <!-- ========================= SECTION MAIN ========================= -->
-<section id="hiddelaptopnitems">
-	<div>
-		<img class="imgsrgg" src="{% static 'myapp/images/py11.jpg' %}" >
-	</div>
+<section class="section-name padding-y-sm">
+    <div class="container">
+        <header class="section-heading">
+            <h3 class="mantitle">Categories</h3>
+        </header>
+        <div class="row">
+            {% for link in lcount %}
+            <div class="col-md-3">
+                <a class="text-warning" href="{{ link.get_url }}">
+                    <div class="cat-item d-flex align-items-center mb-4 custom-bg-color">
+                        <div class="overflow-hidden round-image" style="width: 100px; height: 100px;">
+                            <img class="img-fluid" src="{{ link.cat_image.url }}" alt="">
+                        </div>
+                        <div class="flex-fill pl-3">
+                            <h5>{{ link.category_name }}</h5>
+                            <small class="text-body">{{ link.product_count }} Products </small>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
 </section>
-
-<section id="hiddenitems" class="section-intro padding-y-sm">
-<div class="container">
-<div  class="intro-banner-wrap">
-	<img src="{% static 'myapp/images/py11.jpg' %}" class="img-fluid rounded">
-</div> 
-</div>
-</section>
-
-
-
-
-<!-- Featured Start -->
-<div class="container">
-<div id="hiddelaptopnitems" class="row1">
-<div class="thhhhh">
-	<h1 class="fa fa-check text-warning m-0 mr-3"></h1>
-	<h5>Quality product</h5>
-</div>
-<div class="thhhhh">
-	<h1 class="fa fa-shipping-fast text-warning m-0 mr-2"></h1>
-	<h5>Free Shipping</h5>
-</div>
-<div class="thhhhh">
-	<h1 class="fas fa-exchange-alt text-warning m-0 mr-3"></h1>
-	<h5>14-Day Return</h5>
-</div>
-<div class="thhhhh">
-	<h1 class="fa fa-phone-volume text-warning m-0 mr-3"></h1>
-	<h5>24/7 Support</h5>
-</div>
-</div>	
-</div>
-
-
- <!-- Featured End -->
 
 <section class="section-name padding-y-sm">
-<div class="container">
-
-<header class="section-heading">
-	<h3 class="section-title">Categories</h3>
-</header><!-- sect-heading -->
-
-
-
-<div class="row">
-	{% for link in lcount %}
-	<div class="col-md-3">
-
-		<a class="text-warning" href="{{ link.get_url }}">
-	 		 <div class="cat-item d-flex align-items-center mb-4 custom-bg-color">
-	 				 <div class="overflow-hidden round-image" style="width: 100px; height: 100px;">
-	 						 <img class="img-fluid" src="{{link.cat_image.url}}" alt="">
-	 				 </div>
-	 				 <div class="flex-fill pl-3">
-	 						 <h5>{{ link.category_name }}</h5>
-	 						 <small class="text-body">{{ link.product_count }} Products </small>
-	 				 </div>
-	 		 </div>
-	  </a>
-
-	</div>
-{% endfor %}
-</div> <!-- row.// -->
-
-
-
-
-
-</div>
+    <div class="container">
+        <header class="section-heading">
+            <a href="{% url 'Store' %}" class="btn btn-outline-warning float-right">See all</a>
+            <h3 class="mantitle">Popular products</h3>
+        </header>
+        <div id="hiddelaptopnitems" class="row">
+            {% for d, discount in product_discounts %}
+            <div class="col-md-3">
+                <div class="card card-product-grid">
+                    <a href="{{ d.get_url }}" class="img-wrap">
+                        <img src="{{ d.images.url }}">
+                    </a>
+                    <figcaption class="info-wrap">
+                        <center>
+                            <small class="brandj">{{ d.brand }}</small>
+                            <a href="{{ d.get_url }}" class="title">{{ d.name }}</a>
+                            <div class="d-flex align-items-center justify-content-center mt-2">
+                                <h5>र{{ d.sprice }}</h5>
+                                <h6 class="text-muted ml-2"><del>र{{ d.price }}</del></h6>
+                            </div>
+                            <span class="spanhyh">{{ discount }}% off</span>
+                        </center>
+                    </figcaption>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div id="hiddenitems" class="row">
+            {% for d, discount in product_discounts %}
+            <div class="col-md-3">
+                <div class="card card-product-grid">
+                    <a href="{{ d.get_url }}" class="img-wrap">
+                        <img src="{{ d.images.url }}">
+                    </a>
+                    <figcaption class="info-wrap">
+                        <center>
+                            <small class="brandj">{{ d.brand }}</small>
+                            <a href="{{ d.get_url }}" class="title">{{ d.name }}</a>
+                            <div class="d-flex align-items-center justify-content-center mt-2">
+                                <h5>र{{ d.sprice }}</h5>
+                                <h6 class="text-muted ml-2"><del>र{{ d.price }}</del></h6>
+                            </div>
+                            <span class="spanhyh">{{ discount }}% off</span>
+                        </center>
+                    </figcaption>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
 </section>
 
-
-<section class="section-name padding-y-sm">
-<div class="container">
-
-<header class="section-heading">
-	<a href="{% url 'Store'%}" class="btn btn-outline-warning float-right">See all</a>
-	<h3 class="section-title">Popular products</h3>
-</header><!-- sect-heading -->
-
-
-
-<div id="hiddelaptopnitems" class="row">
-	{% for d, discount in product_discounts %}
-	<div class="rowsddd">
-		<div class="card card-product-grid">
-			<a href="{{ d.get_url }}" class="img-wrap"> <img src="{{d.images.url}}"> </a>
-			<figcaption class="info-wrap">
-					<center>
-								<small class="brandj">{{d.brand}}</small>
-<a href="{{ d.get_url }}" class="title">{{d.name}}</a>
-				<!-- <div class="price mt-1">${{d.price}}</div> <!-- price-wrap.// -->
-				<div class="d-flex align-items-center justify-content-center mt-2">
-				<h5>र{{d.sprice}}</h5><h6 class="text-muted ml-2"><del>र{{d.price}}</del></h6>
-				</div>
-				<span class="spanhyh">{{discount}}% off</span> </center>
-			</figcaption>
-		</div>
-	</div>
-	{% endfor %} <!-- col.// -->
-</div> <!-- row.// -->
-
-
-
-<div id="hiddenitems" class="row">
-	{% for d, discount in product_discounts %}
-	<div class="col-md-3">
-		<div class="card card-product-grid">
-			<a href="{{ d.get_url }}" class="img-wrap"> <img src="{{d.images.url}}"> </a>
-			<figcaption class="info-wrap">
-					<center>
-								<small class="brandj">{{d.brand}}</small>
-<a href="{{ d.get_url }}" class="title">{{d.name}}</a>
-				<!-- <div class="price mt-1">${{d.price}}</div> <!-- price-wrap.// -->
-				<div class="d-flex align-items-center justify-content-center mt-2">
-				<h5>र{{d.sprice}}</h5><h6 class="text-muted ml-2"><del>र{{d.price}}</del></h6>
-				</div>
-				<span class="spanhyh">{{discount}}% off</span> </center>
-			</figcaption>
-		</div>
-	</div>
-	{% endfor %} 
-</div> 
-</div>
-</section>
-<div class="container">
-	<img src="{% static 'myapp/images/py9.jpg' %}" width="100%">
+<div>
+    <img src="{% static 'myapp/images/py9.jpg' %}" class="img-fluid" width="100%">
 </div>
 
-
-
-
-
-<!-- ========================= SECTION  END// ========================= -->
+<!-- ========================= SECTION END// ========================= -->
 <section class="section-intro padding-y-sm">
-<div class="container">
-
-
-</div> <!-- container //  -->
+    <div class="container"></div>
 </section>
-<!-- ========================= SECTION  ========================= -->
+
 <section class="section-name padding-y-sm">
-<div class="container">
-
-<header class="section-heading">
-	<h3 class="section-title">Recent products</h3>
-</header><!-- sect-heading -->
-
-
-
-
-<div id="hiddelaptopnitems" class="row">
-	{% for d , discount in latest_product_discounts %}
-	<div class="rowsddd">
-		<div class="card card-product-grid">
-			<a href="{{ d.get_url }}" class="img-wrap"> <img src="{{d.images.url}}"> </a>
-			<figcaption class="info-wrap">
-					<center>
-								<small class="brandj">{{d.brand}}</small>
-	<a href="{{ d.get_url }}" class="title">{{d.name}}</a>
-				<!-- <div class="price mt-1">${{d.price}}</div> <!-- price-wrap.// -->
-				<div class="d-flex align-items-center justify-content-center mt-2">
-				<h5>र{{d.sprice}}</h5><h6 class="text-muted ml-2"><del>र{{d.price}}</del></h6>
-				</div>
-				<span class="spanhyh">{{discount}}% off</span> </center>
-			</figcaption>
-		</div>
-	</div>
-	{% endfor %} <!-- col.// -->
-</div> <!-- row.// -->
-
-
-
-
-
-<div id="hiddenitems" class="row">
-	{% for d , discount in latest_product_discounts %}
-	<div class="col-md-3">
-		<div class="card card-product-grid">
-			<a href="{{ d.get_url }}" class="img-wrap"> <img src="{{d.images.url}}"> </a>
-			<figcaption class="info-wrap">
-					<center>
-								<small class="brandj">{{d.brand}}</small>
-	<a href="{{ d.get_url }}" class="title">{{d.name}}</a>
-				<!-- <div class="price mt-1">${{d.price}}</div> <!-- price-wrap.// -->
-				<div class="d-flex align-items-center justify-content-center mt-2">
-				<h5>र{{d.sprice}}</h5><h6 class="text-muted ml-2"><del>र{{d.price}}</del></h6>
-				</div>
-				<span class="spanhyh">{{discount}}% off</span> </center>
-			</figcaption>
-		</div>
-	</div>
-	{% endfor %}
-</div> 
-
-
-</div>
+    <div class="container">
+        <header class="section-heading">
+            <h3 class="section-title">Recent products</h3>
+        </header>
+        <div id="hiddelaptopnitems" class="row">
+            {% for d, discount in latest_product_discounts %}
+            <div class="col-md-3">
+                <div class="card card-product-grid">
+                    <a href="{{ d.get_url }}" class="img-wrap">
+                        <img src="{{ d.images.url }}">
+                    </a>
+                    <figcaption class="info-wrap">
+                        <center>
+                            <small class="brandj">{{ d.brand }}</small>
+                            <a href="{{ d.get_url }}" class="title">{{ d.name }}</a>
+                            <div class="d-flex align-items-center justify-content-center mt-2">
+                                <h5>र{{ d.sprice }}</h5>
+                                <h6 class="text-muted ml-2"><del>र{{ d.price }}</del></h6>
+                            </div>
+                            <span class="spanhyh">{{ discount }}% off</span>
+                        </center>
+                    </figcaption>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div id="hiddenitems" class="row">
+            {% for d, discount in latest_product_discounts %}
+            <div class="col-md-3">
+                <div class="card card-product-grid">
+                    <a href="{{ d.get_url }}" class="img-wrap">
+                        <img src="{{ d.images.url }}">
+                    </a>
+                    <figcaption class="info-wrap">
+                        <center>
+                            <small class="brandj">{{ d.brand }}</small>
+                            <a href="{{ d.get_url }}" class="title">{{ d.name }}</a>
+                            <div class="d-flex align-items-center justify-content-center mt-2">
+                                <h5>र{{ d.sprice }}</h5>
+                                <h6 class="text-muted ml-2"><del>र{{ d.price }}</del></h6>
+                            </div>
+                            <span class="spanhyh">{{ discount }}% off</span>
+                        </center>
+                    </figcaption>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
 </section>
-</div>
+
 {% endblock %}

@@ -1,0 +1,84 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+{% block content %}
+<div class="card mx-auto" style="max-width: 400px; margin-top:10px;">
+   <img width="400px" src="{% static 'myapp/images/pexels-markus-winkler-1430818-13516674.jpg' %}" alt="">
+   <div class="card-body">
+      <div class="mb-2">
+         <span><strong style="padding:5px; font-size:22px;">Account creation</strong></span>
+      </div>
+      <form method="post" novalidate enctype="multipart/form-data">
+         {% csrf_token %}
+         <div>
+            <label for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
+            {{ form.first_name }}
+            <ul class="errors">
+               {% for error in form.first_name.errors %}
+               <li>{{ error }}</li>
+               {% endfor %}
+            </ul>
+            <small>{{ form.first_name.help_text }}</small>
+         </div>
+         <div>
+            <label for="{{ form.last_name.id_for_label }}">{{ form.first_name.label }}</label>
+            {{ form.last_name }}
+            <ul class="errors">
+               {% for error in form.last_name.errors %}
+               <li>{{ error }}</li>
+               {% endfor %}
+            </ul>
+            <small>{{ form.last_name.help_text }}</small>
+         </div>
+         <div>
+            <label for="{{ form.phone_number.id_for_label }}">{{ form.phone_number.label }}</label>
+            {{ form.phone_number }}
+            <ul class="errors">
+               {% for error in form.phone_number.errors %}
+               <li>{{ error }}</li>
+               {% endfor %}
+            </ul>
+            <small>{{ form.phone_number.help_text }}</small>
+         </div>
+         <!-- Add similar blocks for last_name, phone_number, password, and confirm_password -->
+         <div class="mt-3">
+            <button type="submit" style="background:#ff9017; border:#ff9017;" class="btn btn-primary w-100">Create</button>
+         </div>
+      </form>
+      <div class="mt-3">
+         <small class="mt-2">Having an account?<strong style="color:#ff9017; font-size:10px;">Login</strong></small>
+      </div>
+      {% if messages %}
+      {% for m in messages  %}
+      <div class="container" id="message">
+         <div {% if m.tags %} class="alert alert-{{ m.tags }}"{% endif %}>
+         {{m}}
+      </div>
+   </div>
+   {% endfor %}
+   {% endif %}
+</div>
+<!-- card-body.// -->
+</div> <!-- card .// -->
+</section>
+<!-- ============================ COMPONENT LOGIN  END.// ================================= -->
+<style>
+   .errors {
+   color: red;
+   list-style-type: none; /* Removes bullets */
+   padding: 0; /* Optional: removes padding */
+   margin: 0; /* Optional: removes margin */
+   font-size:10px;
+   }
+</style>
+<script>
+   // Function to preview the uploaded image
+   document.getElementById('imgInput').onchange = function (event) {
+       const [file] = event.target.files;  // Get the file from input
+       if (file) {
+           const imgPreview = document.getElementById('imgPreview');
+           imgPreview.src = URL.createObjectURL(file);  // Create image URL for preview
+           imgPreview.style.display = 'block';  // Display the preview image
+       }
+   };
+</script>
+{% endblock %}

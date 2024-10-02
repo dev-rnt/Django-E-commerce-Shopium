@@ -3,6 +3,8 @@ from . import views
 from django.conf.urls.static import static
 from django.conf import settings
 
+
+
 urlpatterns = [
 
     path('',views.home,name='Home'),
@@ -14,8 +16,7 @@ urlpatterns = [
     path('remove_cart/<int:product_id>/<int:cart_item>/',views.remove_cart,name='RemoveCart'),
     path('remove_cart_item/<int:product_id>/<int:cart_item>/',views.remove_cart_item,name='RemoveCartItem'),
     path('store/search/',views.search,name='Search'),
-    path('accounts/register/',views.register,name='Register'),
-    path('accounts/login/',views.login,name='Login'),
+    path('accounts/login/',views.email_login_or_signup,name='Login'),
     path('accounts/logout/',views.logout,name='Logout'),
     path('activate/<uidb64>/<token>/', views.activate, name='activate'),
     path('dashboard/',views.dashboard,name='Dashboard'),
@@ -23,6 +24,13 @@ urlpatterns = [
     path('resetpassword/<uidb64>/<token>/', views.resetpassword, name='ResetPassword'),
     path('passwordReset/',views.passwordReset,name='PasswordReset'),
     path('checkout/',views.checkout,name='Checkout'),
+
+    #OTP Login
+    path('emaillogin/',views.email_login_or_signup,name='email_login'),
+    path('emailverification/',views.verify_otp,name='verify_otp'),
+    path('userdetails/',views.user_details_form,name='user_details_form'),
+    path('userlogin/',views.ask_for_password,name='ask_for_password'),
+
 
     #Orders
     path('orders/',views.order,name='Order'),

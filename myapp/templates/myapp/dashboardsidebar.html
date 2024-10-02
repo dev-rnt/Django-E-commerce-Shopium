@@ -28,7 +28,6 @@
     <a class="list-group-item {% if '/dashboard/' == request.path %}active{% endif %}" href="{% url 'Dashboard' %}">Dashboard</a>
     <a class="list-group-item {% if '/myorders/' == request.path %}active{% endif %}" href="{% url 'MyOrder' %}">My Orders</a>
     <a class="list-group-item {% if '/edit_profile/' == request.path %}active{% endif %}" href="{% url 'EditProfile' %}">Edit Profile</a>
-    <a class="list-group-item {% if '/changepass/' == request.path %}active{% endif %}" href="{% url 'ChangePass' %}">Change Password</a>
   </ul>
   <br>
   <a class="btn btn-dark btn-block" href="{% url 'Logout' %}"> <i class="fa fa-power-off"></i> <span class="text">Log out</span> </a>

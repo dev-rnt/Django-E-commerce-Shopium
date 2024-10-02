@@ -1,6 +1,45 @@
 from django import forms
 from .models import *
+from django.core.exceptions import ValidationError
 
+
+
+class EmailLoginForm(forms.Form):
+    email = forms.EmailField(max_length=254,label='',label_suffix='', required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your email'}))
+
+
+
+class OTPForm(forms.Form):
+    otp = forms.CharField(
+        max_length=6,
+        min_length=6,  # Ensure exactly 6 digits
+        label='',  # No label text
+        label_suffix='',  # No suffix
+        required=True,
+        help_text="Enter the 6-digit OTP sent to your email",
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter your OTP',
+                'maxlength': '6',  # Limit input to 6 characters
+                'pattern': r'\d{6}',  # Regex pattern for 6 digits
+                'oninput': 'this.value=this.value.replace(/[^0-9]/g,"");'  # Remove non-numeric input
+            }
+        )
+    )
+
+    def clean_otp(self):
+        otp = self.cleaned_data.get('otp')
+        
+        # Check if the OTP contains only digits
+        if not otp.isdigit():
+            raise ValidationError("OTP must contain only digits.")
+        
+        return otp
+
+
+class PasswordForm(forms.Form):
+     password = forms.CharField(label='', label_suffix=' ', min_length=6,required=True, widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Enter Password'}))
 
 
 class ContactForm(forms.ModelForm):
@@ -72,27 +111,59 @@ class Registration(forms.ModelForm):
 
 
 
+
 class UserForm(forms.ModelForm):
     class Meta:
         model = Account
         fields = ['first_name','last_name','phone_number']
 
     def __init__(self, *args, **kwargs):
-        super(UserForm, self).__init__(*args, **kwargs)
-        # self.fields['first_name'].widget.attrs['placeholder'] = 'Enter First Name'
-        # self.fields['last_name'].widget.attrs['placeholder'] = 'Enter last Name'
-        # self.fields['phone_number'].widget.attrs['placeholder'] = 'Enter Phone Number'
-        # self.fields['email'].widget.attrs['placeholder'] = 'Enter Email Address'
+        super(UserForm, self).__init__(*args,**kwargs)
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
 
-class UserProfileForm(forms.ModelForm):
-    img = forms.ImageField(required=False, error_messages = {'invalid':("Image files only")}, widget=forms.FileInput)
-    class Meta:
-        model = UserProfile
-        fields = ['address_line_1','address_line_2','city','state','country','img']
 
-    def __init__(self,*args,**kwargs):
-        super(UserProfileForm,self).__init__(*args,**kwargs)
-        for field in self.fields:
-            self.fields[field].widget.attrs['class'] = 'form-control'
+# class UserDetailsForm(forms.Form):
+#     first_name = forms.CharField(max_length=50,label='',label_suffix='', required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter first name'}))
+#     last_name = forms.CharField(max_length=50, label='',label_suffix='',required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter last name'}))
+#     phone_number = PhoneNumberField( label="",label_suffix=' ',widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Enter Contact'}))
+
+
+class UserDetailsForm(forms.Form):
+    address_line_1 = forms.CharField(
+        max_length=100,
+        label="",
+        required=False,
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Address Line 1'})
+    )
+    
+    address_line_2 = forms.CharField(
+        max_length=100,
+        label="",
+        required=False,
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Address Line 2'})
+    )
+    
+    city = forms.CharField(
+        max_length=20,
+        label="",
+        required=False,
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'City'})
+    )
+    
+    state = forms.CharField(
+        max_length=20,
+        label="",
+        required=False,
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'State'})
+    )
+    
+    country = forms.CharField(
+        max_length=20,
+        label="",
+        required=False,
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Country'})
+    )
+
+
+

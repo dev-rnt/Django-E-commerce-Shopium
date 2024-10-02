@@ -4,12 +4,24 @@
 	<div class="container-fluid bg-light text-secondary mt-5 pt-5">
 			<div class="row px-xl-5 pt-5">
 					<div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
-							<h5 class="text-secondary text-uppercase mb-4">Get In Touch</h5>
-							<p class="mb-4">For any business collabaration or any other query you can reach us on our office.</p>
-							<p class="mb-2"><i class="fa fa-map-marker-alt text-warning mr-3"></i>D-190 Sector K Hazratganj ,Lucknow</p>
-							<p class="mb-2"><i class="fa fa-envelope text-warning mr-3"></i>rudra2917@gmail.com</p>
-							<p class="mb-0"><i class="fa fa-phone-alt text-warning mr-3"></i>+91 7905817391</p>
+							
+
+							<p class="text-center">
+								<h5 class="text-secondary text-uppercase mb-4">Get in touch with the developer</h5>
+								<img src="{% static 'myapp/images/profilepic.jpeg' %}" alt="Profile Picture" class="rounded-circle mb-3" style="width:100px; display:block; margin-left:auto; margin-right:auto;">
+								Hi, I’m <strong>Rudra Narayan Tiwari</strong>, a web developer with 1 year of experience. I’m eager to collaborate and build great projects. Feel free to reach out for any queries!
+							</p>
+
+							<p class="mb-2">
+								<i class="fab fa-linkedin text-primary mr-3"></i>
+								<a style ="color:black;" href="https://www.linkedin.com/in/rrnntt" target="_blank">Rudra Narayan Tiwari</a>
+							</p>
+							
+							<p class="mb-2"><i class="fa fa-envelope text-warning mr-3"></i><strong>rudra2917@gmail.com</strong></p>
+							<p class="mb-0"><i class="fa fa-phone-alt text-warning mr-3"></i><strong>+91 7905817391</strong></p>
+							
 					</div>
+					<br>
 					<div class="col-lg-8 col-md-12">
 							<div class="row">
 									<div class="col-md-4 mb-5">
@@ -36,7 +48,6 @@
 											{% else %}
 											<div class="d-flex flex-column justify-content-start">
 													<a class="text-secondary mb-2" href="{% url 'Login' %}"><i class="fa fa-angle-right mr-2"></i>Sign in</a>
-													<a class="text-secondary mb-2" href="{% url 'Register' %}"><i class="fa fa-angle-right mr-2"></i>Register</a>
 													<a class="text-secondary mb-2" href="{% url 'ForgotPassword' %}"><i class="fa fa-angle-right mr-2"></i>ForgotPassword</a>
 											</div>
 											{% endif %}
@@ -59,7 +70,7 @@
 			<div class="row border-top mx-xl-5 py-4" style="border-color: rgba(256, 256, 256, .1) !important;">
 					<div class="col-md-6 px-xl-0">
 							<p class="mb-md-0 text-center text-md-left text-secondary">
-									2023&copy; <a class="text-warning" href="#">Shopium</a>. All Rights Reserved. Designed
+									2023 &copy; <a class="text-warning" href="#">Shopium</a>. All Rights Reserved. Designed
 									by
 									<a class="text-warning" href="">Rudra Narayan Tiwari</a>
 							</p>

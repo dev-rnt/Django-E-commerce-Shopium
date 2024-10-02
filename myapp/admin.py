@@ -27,7 +27,7 @@ class AccountAdmin(admin.ModelAdmin):
     readonly_fields = ['password','is_admin','is_active','is_staff','is_superadmin']
     search_fields = ['first_name','last_name']
     list_display_links = ['email','first_name','last_name']
-    list_display = ['id','first_name','last_name','username','email','phone_number','date_joined','last_login','is_active']
+    list_display = ['id','first_name','last_name','email','phone_number','date_joined','last_login','is_active']
 
 @admin.register(Payment)
 class PaymentModel(admin.ModelAdmin):
