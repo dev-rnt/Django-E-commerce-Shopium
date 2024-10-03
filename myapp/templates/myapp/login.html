@@ -23,7 +23,16 @@ Already verified? <a href="{% url 'Login' %}">Sign in</a>
 <img width="400px" src="{% static 'myapp/images/pexels-markus-winkler-1430818-13516674.jpg' %}" alt="">
 
 
+{% if messages %}
+{% for m in messages  %}
+<div id="message">
 
+<div {% if m.tags %} class="alert alert-{{ m.tags }}"{% endif %}>
+    {{m}}
+    </div>
+</div>
+{% endfor %}
+{% endif %}
 
 <div class="card-body">
   <div class="mb-2">
@@ -58,16 +67,7 @@ Already verified? <a href="{% url 'Login' %}">Sign in</a>
 </div>
 
 
-{% if messages %}
-{% for m in messages  %}
-<div class="container" id="message">
 
-<div {% if m.tags %} class="alert alert-{{ m.tags }}"{% endif %}>
-    {{m}}
-    </div>
-</div>
-{% endfor %}
-{% endif %}
 </div> <!-- card-body.// -->
 </div> <!-- card .// -->
 </section>

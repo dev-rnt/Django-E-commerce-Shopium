@@ -1,37 +1,62 @@
 {% extends 'myapp/base.html' %}
 {% load static %}
 {% block content %}
+<style>
+	.custom-file {
+		margin-bottom: 10px; /* Add some bottom margin for spacing */
+	}
+
+	.custom-file-input {
+		width: 50%; /* Set the width to half of the container */
+		display: inline-block; /* Display the input elements in a row */
+	}
+
+	/* Optional: Style the label to match the input */
+	.custom-file-label {
+		display: inline-block;
+		width: Auto;
+		background-color: ; /* Example background color */
+		color: grey; /* Example text color */
+		padding: 8px;
+		border-radius: 5px;
+		cursor: pointer;
+	}
+</style>
 <section class="section-content padding-y bg">
 	<div class="container">
-					{% include 'myapp/includes/message.html' %}
-
+		{% include 'myapp/includes/message.html' %}
 	</div>
 <div class="container">
-
-<!-- ============================ COMPONENT 1 ================================= -->
 <div class="card">
 	<div class="row no-gutters">
 		<aside class="col-md-6">
-<article class="gallery-wrap">
-	<div class="img-big-wrap mainImage">
-	 <center> <img src="{{data.images.url}}"> </center>
-	</div> <!-- img-big-wrap.// -->
+			<article class="gallery-wrap">
+				<div class="img-big-wrap mainImage text-center">
+					<img src="{{data.images.url}}" class="img-fluid" alt="Main Image">
+				</div> <!-- img-big-wrap.// -->
+			</article> <!-- gallery-wrap .end// -->
 
-</article> <!-- gallery-wrap .end// -->
+			<!-- Thumbnail Gallery -->
+			<div class="thumb-gallery d-flex justify-content-center mt-3">
+				<ul class="thumb d-flex flex-wrap justify-content-center">
+					<!-- Main Image as Thumbnail -->
+					<li class="mr-2">
+						<a href="{{data.images.url}}" target="mainImage">
+							<img src="{{data.images.url}}" alt="ProductGallery" class="img-thumbnail">
+						</a>
+					</li>
 
-
-<ul class="thumb">
- <li>
-	 <a href="{{data.images.url}}" target="mainImage"><img src="{{data.images.url}}" alt="ProductGallery"></a>
-	 {% for image in product_gallery %}
-<a href="{{image.img.url}}" target="mainImage"><img src="{{image.img.url}}" alt="ProductGallery"></a>
-{% endfor %}
- </li>
-</ul>
-
-
-
-		</aside>
+					<!-- Loop through product_gallery for additional images -->
+					{% for image in product_gallery %}
+					<li class="mr-2">
+						<a href="{{image.img.url}}" target="mainImage">
+							<img src="{{image.img.url}}" alt="ProductGallery" class="img-thumbnail">
+						</a>
+					</li>
+					{% endfor %}
+				</ul>
+			</div> 
+		</aside>	
 		<main class="col-md-6 border-left">
 
 
@@ -39,11 +64,8 @@
 
       <article class="content-body">
 				<small class="brandj">{{data.brand}}</small>
-      <h2 class="title">{{data.name}}</h2>
+      <h3 class="title">{{data.name}}</h3>
 			<span class="sddsdd">Special price</span>
-			<!-- <div class="mb-3">
-				<var class="price h4">${{data.price}}</var><del>$123.00</del>
-			</div> -->
 			<div class="d-flex align-items justify-content mt-2">
 			<h3 class="font-weight-semi-bold mb-4">र{{data.sprice}} <small class="smalgsd">र{{data.price}} </small><span class="spanhyh">{{percentage_discount}}% off</span> </h3>
      </div>
@@ -68,10 +90,6 @@
 <span>No Rating Yet </span>
 </div>
 {% endif %}
-
-<style media="screen">
-
-</style>
 <br>
 <h4>Available Offer</h4>
 {% for offer in aval_offer %}
@@ -126,21 +144,15 @@
             <option value="{{ i.variation_value }}">{{ i.variation_value | capfirst }}</option>
             {% endfor %}
             </select>
-      		</div>
-      	</div> <!-- row.// -->
-        {% endif %}
-      	<hr>
+			<hr>
 	        {% if data.stock <= 0 %}
         <h5 class="text-danger">Out of Stock</h5>
         {% else %}
         <button type="submit" class="btn btn-warning"> <span class="text">Add to cart</span><i class="fas fa-shopping-cart"></i></button>
-           <!-- {% if in_cart %}
-      <a href="" class="btn  btn-success"> <span class="text">Added to Cart</span> <i class="fas fa-check"></i></a>
-      <a href="{% url 'Cart' %}" class="btn  btn-info"> <span class="text">View in Cart</span> <i class="fas fa-eye"></i></a>
-           {% else %} -->
-
-           <!-- {% endif %} -->
            {% endif %}
+      		</div>
+      	</div> <!-- row.// -->
+        {% endif %}
       </article> <!-- product-info-aside .// -->
 
 </form>
@@ -151,173 +163,152 @@
 </div> <!-- card.// -->
 <!-- ============================ COMPONENT 1 END .// ================================= -->
 <br>
-<div class="row">
-			<div class="col-md-9">
+<div class="container m-2">
+	<div class="row">
+		<div class="col-md-9">
 
 
-   <form action="{% url 'SubmtReview' data.id %}" method="POST" enctype="multipart/form-data">
-   	{% csrf_token %}
-		<h5>Write Your Review</h5>
+<form action="{% url 'SubmtReview' data.id %}" method="POST" enctype="multipart/form-data">
+   {% csrf_token %}
+	<h5>Write Your Review</h5>
 <br>
-		<div>
+	<div>
 
-		<label>How do you rate this product?</label>
-		<br>
-		<div class="rate">
-		<input type="radio" name="rating" id="rating10" value="5" required><label for="rating10" title="5"></label>
-		<input type="radio" name="rating" id="rating9" value="4.5" required><label for="rating9" title="4.5" class="half"></label>
-		<input type="radio" name="rating" id="rating8" value="4" required><label for="rating8" title="4"></label>
-		<input type="radio" name="rating" id="rating7" value="3.5" required><label for="rating7" title="3.5" class="half"></label>
-		<input type="radio" name="rating" id="rating6" value="3" required><label for="rating6" title="3"></label>
-		<input type="radio" name="rating" id="rating5" value="2.5" required><label for="rating5" title="2.5" class="half"></label>
-		<input type="radio" name="rating" id="rating4" value="2" required><label for="rating4" title="2"></label>
-		<input type="radio" name="rating" id="rating3" value="1.5" required><label for="rating3" title="1.5" class="half"></label>
-		<input type="radio" name="rating" id="rating2" value="1" required><label for="rating2" title="1"></label>
-		<input type="radio" name="rating" id="rating1" value="0.5" required><label for="rating1" title="0.5" class="half"></label>
-		</div>
-    <br>
-		<!-- Review: -->
-		<input type="text" name="review" class="form-control" placeholder="Please give your feedback" rows="2" required>
-		<br>
+	<label>How do you rate this product?</label>
+	<br>
+	<div class="rate">
+	<input type="radio" name="rating" id="rating10" value="5" required><label for="rating10" title="5"></label>
+	<input type="radio" name="rating" id="rating9" value="4.5" required><label for="rating9" title="4.5" class="half"></label>
+	<input type="radio" name="rating" id="rating8" value="4" required><label for="rating8" title="4"></label>
+	<input type="radio" name="rating" id="rating7" value="3.5" required><label for="rating7" title="3.5" class="half"></label>
+	<input type="radio" name="rating" id="rating6" value="3" required><label for="rating6" title="3"></label>
+	<input type="radio" name="rating" id="rating5" value="2.5" required><label for="rating5" title="2.5" class="half"></label>
+	<input type="radio" name="rating" id="rating4" value="2" required><label for="rating4" title="2"></label>
+	<input type="radio" name="rating" id="rating3" value="1.5" required><label for="rating3" title="1.5" class="half"></label>
+	<input type="radio" name="rating" id="rating2" value="1" required><label for="rating2" title="1"></label>
+	<input type="radio" name="rating" id="rating1" value="0.5" required><label for="rating1" title="0.5" class="half"></label>
+	</div>
+<br>
+	<!-- Review: -->
+	<input type="text" name="review" class="form-control" placeholder="Please give your feedback" rows="2" required>
+	<br>
 <label for="imageUpload">Select product images</label><br>
-<style>
-        .custom-file {
-            margin-bottom: 10px; /* Add some bottom margin for spacing */
-        }
 
-        .custom-file-input {
-            width: 50%; /* Set the width to half of the container */
-            display: inline-block; /* Display the input elements in a row */
-        }
-
-        /* Optional: Style the label to match the input */
-        .custom-file-label {
-            display: inline-block;
-            width: 30%;
-            background-color: ; /* Example background color */
-            color: grey; /* Example text color */
-            padding: 8px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-    </style>
 
 <div class="custom-file">
-		<input type="file" class="custom-file-input" id="customFile" name="images" multiple>
-		<label class="custom-file-label" for="customFile">Select up to 5 Images</label>
+	<input type="file" class="custom-file-input" id="customFile" name="images" multiple>
+	<label class="custom-file-label" for="customFile">Select up to 5 Images</label>
 </div>
 
-		<br>
-		{% if user.is_authenticated %}
-			{% if orderproduct %}
-			<input type="submit" class="btn btn-warning" name="" value="Add">
-	    {% else %}
-				<p>You must purchase this product to post a review.</p>
-			{% endif %}
-		{% else %}
-		<p>You must logged in to post a review. <span><a href="{% url 'Login' %}">Login Now</a></span></p>
-    {% endif %}
-		</div>
+	<br>
+	{% if user.is_authenticated %}
+		{% if orderproduct %}
+		<input type="submit" class="btn btn-warning" name="" value="Add">
+	{% else %}
+			<p>You must purchase this product to post a review.</p>
+		{% endif %}
+	{% else %}
+	<p>You must logged in to post a review. <span><a href="{% url 'Login' %}">Login Now</a></span></p>
+{% endif %}
+	</div>
 
-	 </form>
-	 <hr>
-
-
+ </form>
+ <hr>
 
 
 
-						 	<header class="section-heading">
-						 	<h3>Customer Reviews </h3>
-						 	</header>
-
-                              {% if reviews %}
-
-															{% for r in reviews %}
-																	 <div id="comments">
-										    			<article class="box mb-3">
-															<div class="icontext w-100">
-																{% if r.user.userprofile.img %}
-																<img src="{{r.user.userprofile.img.url}}" class="img-xs icon rounded-circle">
-																{% endif %}
-																<div class="text">
-																	<span class="date text-muted float-md-right">{{r.created_at}}</span>
-																	<h6 class="mb-1">{{r.user.first_name|capfirst}} {{r.user.last_name|capfirst}}</h6>
 
 
-													         <!-- <i class="fa fa-star-half"  aria-hidden="false"></i> -->
-																	 <div class="_3LWZlKD">
-																	 	{{r.rating }}
+						 <header class="section-heading">
+						 <h3>Customer Reviews </h3>
+						 </header>
 
-																	 		<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMyIgaGVpZ2h0PSIxMiI+PHBhdGggZmlsbD0iI0ZGRiIgZD0iTTYuNSA5LjQzOWwtMy42NzQgMi4yMy45NC00LjI2LTMuMjEtMi44ODMgNC4yNTQtLjQwNEw2LjUuMTEybDEuNjkgNC4wMSA0LjI1NC40MDQtMy4yMSAyLjg4Mi45NCA0LjI2eiIvPjwvc3ZnPg==" class="_1wB99o _19cuvx">
-																	 </div>
+						  {% if reviews %}
 
-																</div>
+														{% for r in reviews %}
+																 <div id="comments">
+													<article class="box mb-3">
+														<div class="icontext w-100">
+															{% if r.user.userprofile.img %}
+															<img src="{{r.user.userprofile.img.url}}" class="img-xs icon rounded-circle">
+															{% endif %}
+															<div class="text">
+																<span class="date text-muted float-md-right">{{r.created_at}}</span>
+																<h6 class="mb-1">{{r.user.first_name|capfirst}} {{r.user.last_name|capfirst}}</h6>
+
+
+														 <!-- <i class="fa fa-star-half"  aria-hidden="false"></i> -->
+																 <div class="_3LWZlKD">
+																	 {{r.rating }}
+
+																		 <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMyIgaGVpZ2h0PSIxMiI+PHBhdGggZmlsbD0iI0ZGRiIgZD0iTTYuNSA5LjQzOWwtMy42NzQgMi4yMy45NC00LjI2LTMuMjEtMi44ODMgNC4yNTQtLjQwNEw2LjUuMTEybDEuNjkgNC4wMSA0LjI1NC40MDQtMy4yMSAyLjg4Mi45NCA0LjI2eiIvPjwvc3ZnPg==" class="_1wB99o _19cuvx">
+																 </div>
+
 															</div>
-																<div class="mt-3">
-																	<p>
-																		{{r.review|capfirst}}
-																	</p>
-																</div>
-
-
-
+														</div>
+															<div class="mt-3">
+																<p>
+																	{{r.review|capfirst}}
+																</p>
+															</div>        
 <!-- Add these lines to your HTML file -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
 
-														<div class="mt-3">
-															<p>
-																{% if r.img1 %}
-																<a data-fancybox="review-{{ r.id }}" href="{{r.img1.url}}">
-																<img widht="100px" height="100px" src="{{r.img1.url}}" alt="">
-																</a>
-															  {% endif %}
+													<div class="mt-3">
+														<p>
+															{% if r.img1 %}
+															<a data-fancybox="review-{{ r.id }}" href="{{r.img1.url}}">
+															<img widht="100px" height="100px" src="{{r.img1.url}}" alt="">
+															</a>
+														  {% endif %}
 
 
-												        {% if r.img2 %}
-																<a data-fancybox="review-{{ r.id }}" href="{{r.img2.url}}">
-																<img widht="100px" height="100px" src="{{r.img2.url}}" alt="">
-																</a>
-																{% endif %}
+													{% if r.img2 %}
+															<a data-fancybox="review-{{ r.id }}" href="{{r.img2.url}}">
+															<img widht="100px" height="100px" src="{{r.img2.url}}" alt="">
+															</a>
+															{% endif %}
 
-																{% if r.img3 %}
-																<a data-fancybox="review-{{ r.id }}" href="{{r.img3.url}}">
-																<img widht="100px" height="100px" src="{{r.img3.url}}" alt="">
-																</a>
-																{% endif %}
+															{% if r.img3 %}
+															<a data-fancybox="review-{{ r.id }}" href="{{r.img3.url}}">
+															<img widht="100px" height="100px" src="{{r.img3.url}}" alt="">
+															</a>
+															{% endif %}
 
-																{% if r.img4 %}
-																<a data-fancybox="review-{{ r.id }}" href="{{r.img4.url}}">
-																<img widht="100px" height="100px" src="{{r.img4.url}}" alt="">
-																</a>
-																{% endif %}
+															{% if r.img4 %}
+															<a data-fancybox="review-{{ r.id }}" href="{{r.img4.url}}">
+															<img widht="100px" height="100px" src="{{r.img4.url}}" alt="">
+															</a>
+															{% endif %}
 
-																{% if r.img5 %}
-																<a data-fancybox="review-{{ r.id }}" href="{{r.img5.url}}">
-																<img widht="100px" height="100px" src="{{r.img5.url}}" alt="">
-																</a>
-																{% endif %}
+															{% if r.img5 %}
+															<a data-fancybox="review-{{ r.id }}" href="{{r.img5.url}}">
+															<img widht="100px" height="100px" src="{{r.img5.url}}" alt="">
+															</a>
+															{% endif %}
 
-															</p>
+														</p>
+													</div>
+													<!-- Your template -->
+													<br>
+						{% if request.user == r.user %}
+													<button type="button" onclick="window.location.href='{% url 'DeleteRev' r.id %}'" class="btn btn-danger btn-sm" name="button">Delete</button>
+													<button type="button" onclick="redirectToUpdate('{% url 'UpdateRev' r.id %}')" class="btn btn-info btn-sm" name="button">Update</button>
+						{% endif %}
+													</article>
+													  {% endfor %}
 														</div>
-														<!-- Your template -->
-														<br>
-                            {% if request.user == r.user %}
-														<button type="button" onclick="window.location.href='{% url 'DeleteRev' r.id %}'" class="btn btn-danger btn-sm" name="button">Delete</button>
-														<button type="button" onclick="redirectToUpdate('{% url 'UpdateRev' r.id %}')" class="btn btn-info btn-sm" name="button">Update</button>
-                            {% endif %}
-														</article>
-														  {% endfor %}
-															</div>
-														 </div>
-                              {% else %}
-                              <h5>No Rating Yet</h5>
-                              {% endif %}
+													 </div>
+						  {% else %}
+						  <h5>No Rating Yet</h5>
+						  {% endif %}
 
 
-																</div> <!-- col.// -->
+															</div> <!-- col.// -->
 
+</div>
 </section>
 <!-- ========================= SECTION CONTENT END// ========================= -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

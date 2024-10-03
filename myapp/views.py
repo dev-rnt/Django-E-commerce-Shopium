@@ -79,7 +79,7 @@ def updaterev(request, user_id):
     else:
         form = UpdateRevForm(instance=data)
 
-    return render(request, 'myapp/form.html', {'form': form,'r':data})
+    return render(request, 'myapp/updaterev.html', {'form': form,'r':data})
 
 def deleterev(request, user_id):
     data = ReviewRating.objects.get(id=user_id)

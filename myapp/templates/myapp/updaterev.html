@@ -1,0 +1,114 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+{% block content %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("[data-fancybox]").fancybox({
+      // Custom Fancybox options can go here
+    });
+  });
+</script>
+
+<div class="container mt-4">
+  <div class="row">
+    <div class="m-3">
+      <h4>Product Images Preview</h4>
+      <p>
+        {% if r.img1 %}
+        <a data-fancybox="review-{{ r.id }}" href="{{r.img1.url}}">
+          <img width="100px" height="100px" src="{{r.img1.url}}" alt="Image 1">
+        </a>
+        {% endif %}
+
+        {% if r.img2 %}
+        <a data-fancybox="review-{{ r.id }}" href="{{r.img2.url}}">
+          <img width="100px" height="100px" src="{{r.img2.url}}" alt="Image 2">
+        </a>
+        {% endif %}
+
+        {% if r.img3 %}
+        <a data-fancybox="review-{{ r.id }}" href="{{r.img3.url}}">
+          <img width="100px" height="100px" src="{{r.img3.url}}" alt="Image 3">
+        </a>
+        {% endif %}
+
+        {% if r.img4 %}
+        <a data-fancybox="review-{{ r.id }}" href="{{r.img4.url}}">
+          <img width="100px" height="100px" src="{{r.img4.url}}" alt="Image 4">
+        </a>
+        {% endif %}
+
+        {% if r.img5 %}
+        <a data-fancybox="review-{{ r.id }}" href="{{r.img5.url}}">
+          <img width="100px" height="100px" src="{{r.img5.url}}" alt="Image 5">
+        </a>
+        {% endif %}
+      </p>
+    </div>
+  </div>
+</div>
+
+<br><br>
+
+<div class="container">
+  <h2>Update Your Review</h2>
+  <br>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    <div class="form-group">
+      <label for="review">{{ form.review.label }}</label>
+      {{ form.review }}
+    </div>
+
+    <div class="form-group">
+      <label for="rating">{{ form.rating.label }}</label>
+      {{ form.rating }}
+      <small class="smalcss text-danger">{{ form.rating.errors | striptags }}</small>
+    </div>
+
+    <h6>Update Product Images</h6>
+
+    <div class="custom-file mb-3">
+      <input type="file" class="custom-file-input" id="customFile1" name="img1">
+      <label class="custom-file-label" for="customFile1">Choose file</label>
+    </div>
+
+    <div class="custom-file mb-3">
+      <input type="file" class="custom-file-input" id="customFile2" name="img2">
+      <label class="custom-file-label" for="customFile2">Choose file</label>
+    </div>
+
+    <div class="custom-file mb-3">
+      <input type="file" class="custom-file-input" id="customFile3" name="img3">
+      <label class="custom-file-label" for="customFile3">Choose file</label>
+    </div>
+
+    <div class="custom-file mb-3">
+      <input type="file" class="custom-file-input" id="customFile4" name="img4">
+      <label class="custom-file-label" for="customFile4">Choose file</label>
+    </div>
+
+    <div class="custom-file mb-3">
+      <input type="file" class="custom-file-input" id="customFile5" name="img5">
+      <label class="custom-file-label" for="customFile5">Choose file</label>
+    </div>
+
+    <input type="submit" class="btn btn-warning" value="Update">
+  </form>
+</div>
+
+<script type="text/javascript">
+  // Display selected file name for input
+  $(".custom-file-input").on("change", function () {
+    var fileName = 'Image File Selected';
+    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+  });
+</script>
+
+{% endblock %}

@@ -41,14 +41,14 @@
 													<a class="text-secondary mb-2" href="{% url 'Dashboard' %}"><i class="fa fa-angle-right mr-2"></i>Dashboard</a>
 													<a class="text-secondary mb-2" href="{% url 'MyOrder' %}"><i class="fa fa-angle-right mr-2"></i>MyOrder</a>
                        <a class="text-secondary mb-2" href="{% url 'EditProfile' %}"><i class="fa fa-angle-right mr-2"></i>Edit Profile</a>
-											 <a class="text-secondary mb-2" href="{% url 'ChangePass' %}"><i class="fa fa-angle-right mr-2"></i>Change Profile Password</a>
+											 <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Change Profile Password</a>
 
  											</div>
 
 											{% else %}
 											<div class="d-flex flex-column justify-content-start">
 													<a class="text-secondary mb-2" href="{% url 'Login' %}"><i class="fa fa-angle-right mr-2"></i>Sign in</a>
-													<a class="text-secondary mb-2" href="{% url 'ForgotPassword' %}"><i class="fa fa-angle-right mr-2"></i>ForgotPassword</a>
+													<a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>ForgotPassword</a>
 											</div>
 											{% endif %}
 									</div>
